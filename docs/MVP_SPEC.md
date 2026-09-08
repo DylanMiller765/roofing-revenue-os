@@ -1,0 +1,40 @@
+# MVP Spec
+
+## Surface A — Prospect-facing demo funnel
+- Houston roofing-specific hero and CTA
+- Click-to-call CTA
+- Short qualification form
+- Homeowner / need / ZIP / roof-age / phone capture
+- UTM + GCLID/GBRAID preservation
+- Trust sections populated only from verified client data
+- Dedicated storm-intent variant later
+
+## Surface B — Internal operator dashboard
+- Spend, clicks, leads, qualified leads, booked inspections, estimates, wins, revenue
+- Campaign and search-term drill-down
+- Daily AI analyst recommendations
+- Recommendation status: proposed / approved / rejected / executed
+- Audit trail
+
+## Integrations
+### v0
+- Mock Google Ads dataset
+- Mock lead capture
+
+### v1
+- Google Ads read-only via plugin or API
+- Supabase persistence
+- Call-tracking provider
+- CRM or lightweight internal pipeline
+
+### v2
+- Offline qualified/converted lead uploads via Google Ads Data Manager API
+- Human-approved Google Ads write actions
+- Weather/storm trigger data
+
+## Non-goals for v0
+- Full CRM replacement
+- Autonomous budget changes
+- AI phone receptionist
+- Meta Ads
+- Multi-vertical support
