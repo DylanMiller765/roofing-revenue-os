@@ -6,7 +6,7 @@ An acquisition-focused mock MVP for a Houston roofing customer-acquisition servi
 
 Google Search Ads → dedicated pages matched to replacement, storm or repair searches → tracked calls/forms → leads sent directly to the roofer → acquisition quality review and controlled Ads optimization. We build and host paid-traffic pages; the roofer keeps their existing website and sales process.
 
-Open `/` and select an example search to see the headline, inspection action and form concern change together. “View homeowner page” hides the sales walkthrough. The examples select configured `intent` destinations; they do not read a visitor’s private Google search or automatically learn a winning page. Related keywords share a page.
+Open `/` and use the left/right search controls, drag the hero, or swipe on a phone to change the roof image, headline and form concern together. Append `preview=homeowner` to show the matching destination without demo controls. The examples select configured `intent` destinations; they do not read a visitor’s private Google search or automatically learn a winning page. Related keywords share a page.
 
 Read [V1 service boundaries and demo script](docs/V1_SERVICE.md) before extending this product.
 
@@ -65,7 +65,7 @@ npm audit
 - Session-scoped attribution continuity for UTM fields, GCLID and GBRAID (30-minute expiry; new tagged visits replace the complete source)
 - Intent entry points: `/?intent=repair`, `/?intent=replacement`, `/?intent=storm`
 - Qualified / review-needed mock receipt; contact details are never persisted or routed
-- Self-hosted Manrope variable font with its OFL license; original architectural illustration, not client work proof
+- Self-hosted Manrope variable font with its OFL license; generated architectural roof imagery, labeled as illustration rather than client work proof
 
 ## Client configuration
 
@@ -107,7 +107,7 @@ Edit `config/client.ts` to supply verified identity, phone, market and service-a
 
 See [V1 QA and screenshots](docs/QA_V1_DEMO.md) for the current validation record and [service boundaries](docs/V1_SERVICE.md) for the sales script.
 
-![Search-matched page demo](public/screenshots/search-demo-desktop.png)
+![Search-matched page demo](public/screenshots/roofing-slider-desktop.png)
 
 ## Revamp audit and verification
 
@@ -120,3 +120,5 @@ The dashboard is a static 29-day sample cohort. Campaign filters affect the perf
 ## Next phases
 
 Google Ads reporting, controlled mutations and future offline conversion uploads remain separate adapters. Qualifying reversible low- and medium-risk actions may auto-execute once a live provider is configured; high-risk actions require explicit approval. See `docs/ADS_ANALYST_SPEC.md` for the complete gates and hard guardrails.
+
+The current photographic slider design, interaction and image prompts are documented in [HERO_DESIGN.md](docs/HERO_DESIGN.md).

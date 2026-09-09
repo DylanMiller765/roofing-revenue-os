@@ -8,8 +8,8 @@
 The on-screen demo is fictional. It does not deliver leads, place calls, connect an account or change ads.
 
 ## How the walkthrough works
-- `/` starts with the replacement example. Three links select `intent=replacement`, `storm` or `repair` and update the headline, action, explanation and form concern together.
-- “View homeowner page” adds `preview=homeowner` to hide the explanatory demo controls. This remains visibly fictional.
+- `/` starts with the replacement example. Previous/next controls, hero dragging or touch swipes select `intent=replacement`, `storm` or `repair` and update the headline, action, explanation and form concern together.
+- Adding `preview=homeowner` hides the explanatory demo controls. This remains visibly fictional.
 - Existing query attribution is preserved through example and preview links. The existing session capture remains in place for other navigation.
 - Ads would use configured destination URLs by intent group. The demo does not discover an individual's raw Google search or use a self-learning conversion model. Do not create a page per keyword.
 - Better relevance is the design hypothesis. Measure qualified-lead conversion and CPQL to learn what actually performs. Google's [setup guidance](https://business.google.com/us/resources/articles/how-to-setup-google-ads-a-checklist/) recommends landing pages relevant to ads and keywords; it does not promise a lift for our pages.

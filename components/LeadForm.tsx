@@ -22,6 +22,8 @@ export default function LeadForm({
 		"idle",
 	);
 	const [message, setMessage] = useState("");
+	const [need, setNeed] = useState(initialNeed);
+	useEffect(() => setNeed(initialNeed), [initialNeed]);
 	const [receipt, setReceipt] = useState<Receipt | null>(null);
 	const attribution = useRef<Attribution>({});
 	const resultHeading = useRef<HTMLHeadingElement>(null);
@@ -153,7 +155,13 @@ export default function LeadForm({
 			<div className="form-grid concern-grid">
 				<div className="form-field">
 					<label htmlFor="need">Roof concern</label>
-					<select id="need" name="need" required defaultValue={initialNeed}>
+					<select
+						id="need"
+						name="need"
+						required
+						value={need}
+						onChange={(event) => setNeed(event.target.value)}
+					>
 						<option value="" disabled>
 							Select a concern
 						</option>
