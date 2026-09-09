@@ -2,11 +2,19 @@
 
 An acquisition-focused mock MVP for a Houston roofing customer-acquisition service. It demonstrates a mobile prospect funnel and a controlled, risk-gated operator control room while keeping every company claim, phone number, dataset and outcome explicitly fictional.
 
+## The founding-client service
+
+Google Search Ads → dedicated pages matched to replacement, storm or repair searches → tracked calls/forms → leads sent directly to the roofer → acquisition quality review and controlled Ads optimization. We build and host paid-traffic pages; the roofer keeps their existing website and sales process.
+
+Open `/` and select an example search to see the headline, inspection action and form concern change together. “View homeowner page” hides the sales walkthrough. The examples select configured `intent` destinations; they do not read a visitor’s private Google search or automatically learn a winning page. Related keywords share a page.
+
+Read [V1 service boundaries and demo script](docs/V1_SERVICE.md) before extending this product.
+
 ## Product boundaries
 
 - The public funnel stays visibly labeled as a demo until verified real-client data is configured.
 - Google Ads and CRM data are mocked. The controlled-write policy is implemented, but there is no live mutation adapter or account connection.
-- Success is measured through qualified leads, booked inspections, estimates, wins and revenue—not raw CPL alone.
+- V1 measures acquisition and qualified-lead cost. Inspections, estimates, wins and revenue are optional enrichment after the roofer shares reliable outcomes. No CRM adoption or sales-stage updates are required.
 - No licenses, reviews, warranties, certifications, prices, insurance outcomes or service claims are implied.
 
 ## Requirements
@@ -27,7 +35,7 @@ npm run dev
 Open:
 
 - Prospect demo: [http://localhost:3000](http://localhost:3000)
-- Operator dashboard: [http://localhost:3000/operator](http://localhost:3000/operator)
+- Our internal acquisition dashboard: [http://localhost:3000/operator](http://localhost:3000/operator)
 
 The current mock MVP does not require populated environment variables. `.env.example` reserves names for future Supabase persistence and separately deployed Google Ads reporting/mutation adapters.
 
@@ -46,7 +54,7 @@ npm audit
 ## What is implemented
 
 - `/` — responsive Houston-specific fictional inspection-request funnel
-- `/operator` — campaign-scoped economics, a reconciled cumulative funnel, mobile campaign cards, searchable terms, complete recommendation evidence, a read-only policy lab and audit details
+- `/operator` — campaign-scoped spend, calls, forms, qualified-lead economics, an optional cumulative sales funnel, mobile campaign cards, searchable terms, complete recommendation evidence, a read-only policy lab and audit details
 - `/api/leads` — validated mock capture endpoint; it does not persist or route contact data
 - `config/client.ts` — one lightweight source for white-label identity and service-area values
 - `lib/qualification.ts` — testable v0 qualified-lead rules
@@ -92,8 +100,14 @@ Edit `config/client.ts` to supply verified identity, phone, market and service-a
 - [x] Interactive policy scenarios make approval, tracking and provider boundaries explicit without executing or saving changes.
 - [x] Every modeled mutation records previous/new values, rationale, metrics, confidence and status.
 - [x] Unit tests, TypeScript and the optimized production build pass.
-- [ ] Before a real pilot, verify client service area, contact routing, claims, consent language, privacy policy, call tracking and CRM ownership.
+- [ ] Before a real pilot, verify client service area, contact routing, claims, consent language, privacy policy, call tracking and Ads account ownership. CRM access is optional.
 - [ ] Before connecting Google Ads, complete a successful reporting request, deploy a separate mutation adapter, persist approvals/audits and test against a Google Ads test account.
+
+## Current demo verification
+
+See [V1 QA and screenshots](docs/QA_V1_DEMO.md) for the current validation record and [service boundaries](docs/V1_SERVICE.md) for the sales script.
+
+![Search-matched page demo](public/screenshots/search-demo-desktop.png)
 
 ## Revamp audit and verification
 

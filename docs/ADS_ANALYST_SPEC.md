@@ -1,5 +1,9 @@
 # Daily Ads Analyst and controlled-write architecture
 
+## V1 scope clarification
+
+The founding pilot measures acquisition and qualified leads. CRM adoption and sales outcomes are optional; the current mock analyst sample includes deeper signals to demonstrate future capability. Preserve the tested engine and safeguards. A live adapter must distinguish missing downstream evidence from true zeros and validate tracking appropriate to available signals before enabling optimization. No live adapter is implemented in this task.
+
 ## Objective
 
 Optimize the full roofing revenue path:

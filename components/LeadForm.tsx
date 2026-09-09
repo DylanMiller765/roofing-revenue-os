@@ -13,8 +13,10 @@ const reasonLabels: Record<string, string> = {
 
 export default function LeadForm({
 	initialNeed = "",
+	title = "Request a roof inspection",
 }: {
 	initialNeed?: string;
+	title?: string;
 }) {
 	const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
 		"idle",
@@ -131,7 +133,7 @@ export default function LeadForm({
 					<Icon name="roof" />
 				</span>
 				<h2 ref={formHeading} tabIndex={-1}>
-					Request a roof inspection
+					{title}
 				</h2>
 				<p>Start with a few details about your home.</p>
 			</div>

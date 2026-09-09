@@ -2889,3 +2889,200 @@ fieldset.segmented {
 		font-size: 10px;
 	}
 }
+
+/* The sales walkthrough frames the existing homeowner page. */
+.search-demo {
+	background: #eaf0f7;
+	border-bottom: 1px solid #cdd9e7;
+	padding: 26px 0 20px;
+}
+.search-demo-heading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+}
+.search-demo-heading h2 {
+	font-size: 23px;
+}
+.search-demo-heading p {
+	margin-top: 5px;
+}
+.search-demo-heading .text-link {
+	white-space: nowrap;
+	font-size: 12px;
+}
+.search-examples {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
+	margin: 18px 0 14px;
+}
+.search-examples a {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: white;
+	padding: 13px 15px;
+	border: 1px solid #bfccda;
+	border-radius: 7px;
+	font-size: 13px;
+	font-weight: 600;
+}
+.search-examples a span {
+	flex: 1;
+}
+.search-examples a[aria-current="page"] {
+	border-color: var(--blue);
+	box-shadow: inset 0 0 0 1px var(--blue);
+	color: var(--blue);
+}
+.search-examples a:hover {
+	background: #f6f9fd;
+}
+.search-explanation {
+	display: grid;
+	grid-template-columns: 1.1fr 1fr;
+	gap: 32px;
+	font-size: 12px;
+}
+.search-explanation strong {
+	color: var(--ink);
+}
+.demo-handoff {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	border-top: 1px solid #cdd9e7;
+	margin-top: 16px;
+	padding-top: 12px;
+	font-size: 12px;
+}
+.demo-handoff span {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.demo-handoff b {
+	background: white;
+	width: 22px;
+	height: 22px;
+	display: grid;
+	place-items: center;
+	border-radius: 50%;
+}
+.acquisition-metrics {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.acquisition-story {
+	padding: 24px;
+	margin-top: 22px;
+}
+.acquisition-story > div p {
+	max-width: 760px;
+	margin-top: 8px;
+}
+.acquisition-story ol {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 28px;
+	padding: 0;
+	margin: 22px 0;
+	list-style: none;
+	counter-reset: service;
+}
+.acquisition-story li {
+	counter-increment: service;
+	border-top: 2px solid var(--line);
+	padding-top: 12px;
+}
+.acquisition-story li strong {
+	display: block;
+	font-size: 13px;
+}
+.acquisition-story li strong:before {
+	content: counter(service) ". ";
+	color: var(--blue);
+}
+.acquisition-story li span {
+	display: block;
+	color: var(--muted);
+	font-size: 12px;
+	margin-top: 6px;
+}
+.optional-outcomes {
+	margin-top: 20px;
+	overflow: hidden;
+}
+.optional-outcomes > summary {
+	padding: 18px 24px;
+	font-weight: 600;
+}
+.optional-outcomes .optional-intro {
+	padding: 20px 24px 0;
+}
+.optional-outcomes .outcome-grid {
+	margin: 20px;
+}
+@media (max-width: 760px) {
+	.search-demo {
+		padding: 22px 0 16px;
+	}
+	.search-demo-heading {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.search-demo-heading h2 {
+		font-size: 22px;
+	}
+	.search-examples {
+		grid-template-columns: 1fr;
+		gap: 8px;
+	}
+	.search-explanation {
+		grid-template-columns: 1fr;
+		gap: 9px;
+	}
+	.demo-handoff {
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+	.demo-handoff > svg {
+		display: none;
+	}
+	.demo-handoff span {
+		font-size: 11px;
+	}
+	.acquisition-metrics {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	.acquisition-story ol {
+		grid-template-columns: 1fr;
+		gap: 16px;
+	}
+	.optional-outcomes .outcome-grid {
+		margin: 12px;
+	}
+}
+
+@media (max-width: 760px) {
+	.search-demo-heading {
+		gap: 8px;
+	}
+	.search-demo-heading p {
+		font-size: 12px;
+	}
+	.search-examples {
+		margin: 12px 0 10px;
+	}
+	.search-examples a {
+		padding: 10px 12px;
+		min-height: 44px;
+	}
+	.search-explanation .match-reason,
+	.search-explanation p + p,
+	.demo-handoff {
+		display: none;
+	}
+}

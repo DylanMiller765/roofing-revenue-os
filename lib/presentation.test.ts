@@ -17,3 +17,13 @@ describe("reconciled owner reporting", () => {
 		expect(stages[3].conversion).toBeNull();
 	});
 });
+
+// Channel counts must reconcile under every campaign scope.
+it("reconciles call and form channels with acquisition totals", () => {
+	for (const campaign of campaigns) {
+		expect(campaign.calls + campaign.formLeads).toBe(campaign.leads);
+		expect(campaign.qualifiedLeads).toBeLessThanOrEqual(campaign.leads);
+	}
+	expect(campaigns.reduce((n, c) => n + c.calls, 0)).toBe(13);
+	expect(campaigns.reduce((n, c) => n + c.formLeads, 0)).toBe(23);
+});

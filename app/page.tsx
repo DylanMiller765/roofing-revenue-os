@@ -3,41 +3,27 @@ import LeadForm from "@/components/LeadForm";
 import Icon from "@/components/Icon";
 import { clientConfig } from "@/config/client";
 
-const intentCopy = {
-	repair: {
-		title: "A roof leak needs a clear next step.",
-		body: "Tell us where you’re seeing a problem. Start with a roof inspection request for your Houston home.",
-		need: "repair",
-	},
-	replacement: {
-		title: "A new roof starts with a clear picture.",
-		body: "Considering a roof replacement? Share a few details about your Houston home to start an inspection request.",
-		need: "replacement",
-	},
-	storm: {
-		title: "After the storm, start with your roof.",
-		body: "Noticed missing shingles or a new leak? Tell us what changed and start a roof inspection request for your Houston home.",
-		need: "storm",
-	},
-	general: {
-		title: "Your roof. A clear next step.",
-		body: "A leak, storm damage, or a roof showing its age. Tell us what’s happening at your Houston home to start an inspection request.",
-		need: "",
-	},
-};
+import { landingIntents, resolveLandingIntent } from "@/lib/landing-intent";
 
 export default async function Page({
 	searchParams,
 }: {
 	searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-	const { intent } = await searchParams;
-	const copy =
-		intentCopy[
-			intent === "repair" || intent === "replacement" || intent === "storm"
-				? intent
-				: "general"
-		];
+	const params = await searchParams;
+	const intent = resolveLandingIntent(params.intent);
+	const copy = landingIntents[intent];
+	const showWalkthrough = clientConfig.isDemo && params.preview !== "homeowner";
+	function intentUrl(next: string, homeowner = false) {
+		const query = new URLSearchParams();
+		for (const [key, value] of Object.entries(params)) {
+			if (typeof value === "string") query.set(key, value);
+		}
+		query.set("intent", next);
+		if (homeowner) query.set("preview", "homeowner");
+		else query.delete("preview");
+		return `/?${query}`;
+	}
 	return (
 		<main className="public-shell" id="top">
 			<a className="skip-link" href="#request">
@@ -48,10 +34,71 @@ export default async function Page({
 					<span className="demo-dot" />
 					Fictional roofing demo. No services offered.
 					<Link href="/operator">
-						Explore the owner dashboard <Icon name="external" />
+						How we manage your ads <Icon name="external" />
 					</Link>
 				</div>
 			</div>
+			{showWalkthrough && (
+				<section
+					className="search-demo"
+					aria-label="Search to landing page demonstration"
+				>
+					<div className="wrap">
+						<div className="search-demo-heading">
+							<div>
+								<h2>Different searches. A page that fits.</h2>
+								<p>
+									Choose what a homeowner searches. Watch the page below change.
+								</p>
+							</div>
+							<Link className="text-link" href={intentUrl(intent, true)}>
+								View homeowner page <Icon name="external" />
+							</Link>
+						</div>
+						<nav
+							className="search-examples"
+							aria-label="Example homeowner searches"
+						>
+							{Object.entries(landingIntents).map(([key, example]) => (
+								<Link
+									key={key}
+									href={intentUrl(key)}
+									scroll={false}
+									aria-current={intent === key ? "page" : undefined}
+								>
+									<Icon name="search" />
+									<span>{example.search}</span>
+									<Icon name={intent === key ? "check" : "arrow"} />
+								</Link>
+							))}
+						</nav>
+						<div className="search-explanation" aria-live="polite">
+							<p>
+								<strong>{copy.label} page selected.</strong>{" "}
+								<span className="match-reason">{copy.reason}</span>
+							</p>
+							<p>
+								We set up your ads to send each type of search to the right
+								page. Then we measure which pages bring qualified leads. This is
+								an example, not a live Google search.
+							</p>
+						</div>
+						<div className="demo-handoff">
+							<span>
+								<b>1</b> They search
+							</span>
+							<Icon name="arrow" />
+							<span>
+								<b>2</b> They see the page below
+							</span>
+							<Icon name="arrow" />
+							<span>
+								<b>3</b> They call or send you a request
+							</span>
+						</div>
+					</div>
+				</section>
+			)}
 			<header className="public-header wrap">
 				<Link
 					className="brand-lockup"
@@ -84,7 +131,7 @@ export default async function Page({
 					<p className="hero-subhead">{copy.body}</p>
 					<div className="hero-actions">
 						<a className="button button--primary" href="#request">
-							Request an inspection <Icon name="arrow" />
+							{copy.action} <Icon name="arrow" />
 						</a>
 						<a className="text-link" href="#next">
 							How it works
@@ -157,7 +204,7 @@ export default async function Page({
 					</figure>
 				</div>
 				<div id="request" className="form-anchor">
-					<LeadForm key={copy.need} initialNeed={copy.need} />
+					<LeadForm key={intent} initialNeed={intent} title={copy.action} />
 				</div>
 			</section>
 			<section className="next-section wrap" id="next">
@@ -246,7 +293,7 @@ export default async function Page({
 					guarantees are represented.
 				</p>
 				<Link className="text-link" href="/operator">
-					Built on Roofing Revenue OS <Icon name="external" />
+					See how we manage acquisition <Icon name="external" />
 				</Link>
 			</footer>
 			<nav className="mobile-action-bar" aria-label="Inspection actions">

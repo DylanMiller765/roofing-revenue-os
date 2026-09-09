@@ -21,6 +21,15 @@ import {
 import Icon from "./Icon";
 import PolicyLab from "./PolicyLab";
 
+function visibleWaste(ids: string[]) {
+	return searchTerms
+		.filter(
+			(term) =>
+				ids.includes(term.campaignId) && term.disposition === "Negative review",
+		)
+		.reduce((sum, term) => sum + term.spend, 0);
+}
+
 const nav = [
 	{ id: "overview", label: "Overview", icon: "chart" },
 	{ id: "campaigns", label: "Campaigns", icon: "funnel" },
@@ -43,6 +52,9 @@ export default function OperatorDashboard() {
 		selected === "all" ? campaigns : campaigns.filter((c) => c.id === selected);
 	const totals = sumFunnelMetrics(rows);
 	const stages = cohortStages(totals);
+	const calls = rows.reduce((sum, row) => sum + row.calls, 0);
+	const formLeads = rows.reduce((sum, row) => sum + row.formLeads, 0);
+	const waste = visibleWaste(rows.map((row) => row.id));
 	const visibleTerms = searchTerms.filter(
 		(term) =>
 			(selected === "all" || term.campaignId === selected) &&
@@ -57,17 +69,15 @@ export default function OperatorDashboard() {
 	);
 	const metrics = [
 		["Ad spend", money(totals.spend), "Google Search media"],
+		["Calls", String(calls), "Mock inbound calls; not call clicks"],
+		["Form leads", String(formLeads), "Mock inspection requests"],
 		[
-			"Qualified opportunities",
+			"Qualified leads",
 			String(totals.qualifiedLeads),
-			`${percent(totals.leadToQualifiedRate)} of ${totals.leads} leads`,
+			`${percent(totals.leadToQualifiedRate)} of ${totals.leads} total leads`,
 		],
+		["Cost / lead", money(totals.cpl), "Spend ÷ all leads"],
 		["Cost / qualified lead", money(totals.cpql), "Spend ÷ qualified leads"],
-		[
-			"Cost / booked inspection",
-			money(totals.costPerBookedInspection),
-			`${totals.bookedInspections} inspections booked`,
-		],
 	];
 	return (
 		<div className="operator-shell">
@@ -126,7 +136,8 @@ export default function OperatorDashboard() {
 				<div className="mock-banner">
 					<span className="demo-tag">Demo data</span>
 					<p>
-						Fictional performance and sales outcomes. No live account changes.
+						Our internal acquisition workspace. All figures are mock; no leads
+						are delivered or ads changed.
 					</p>
 					<a href="#controls">
 						View safeguards <Icon name="shield" />
@@ -137,7 +148,7 @@ export default function OperatorDashboard() {
 						<div className="dashboard-heading">
 							<div>
 								<p className="muted">Houston residential roofing</p>
-								<h1>From ad spend to signed work.</h1>
+								<h1>Know what your ad spend brings in.</h1>
 							</div>
 							<div className="date-control">
 								<Icon name="clock" />
@@ -161,9 +172,9 @@ export default function OperatorDashboard() {
 									</option>
 								))}
 							</select>
-							<span>Static sample • outcomes as of Sep 8</span>
+							<span>Static acquisition sample • as of Sep 8</span>
 						</div>
-						<div className="metric-grid" aria-live="polite">
+						<div className="metric-grid acquisition-metrics" aria-live="polite">
 							{metrics.map(([label, value, context]) => (
 								<article className="metric-cell" key={label}>
 									<p>{label}</p>
@@ -172,95 +183,141 @@ export default function OperatorDashboard() {
 								</article>
 							))}
 						</div>
-						<div className="outcome-grid">
-							<section className="funnel-panel panel">
-								<div className="panel-heading">
-									<div>
-										<h2>The path to a signed roof</h2>
-										<p>Cumulative stages reached by this lead cohort</p>
-									</div>
-									<span className="status">{totals.leads} leads</span>
-								</div>
-								<div className="cohort-chart">
-									{stages.map((stage, index) => (
-										<div className="cohort-column" key={stage.label}>
-											<div className="cohort-label">
-												<span>{stage.label}</span>
-												<strong>{stage.count}</strong>
-											</div>
-											<div className="cohort-track">
-												<div
-													style={
-														{
-															"--bar": `${totals.leads ? (stage.count / totals.leads) * 100 : 0}%`,
-															"--stage": index,
-														} as CSSProperties
-													}
-												/>
-											</div>
-											<div className="cohort-conversion">
-												{index === 0 ? (
-													"Starting cohort"
-												) : (
-													<>
-														<b>{percent(stage.conversion)}</b> from prior stage
-													</>
-												)}
-											</div>
-										</div>
-									))}
-								</div>
-								<p className="panel-footnote">
-									Stages overlap; do not add them together. Not yet advanced
-									does not mean lost.
-								</p>
-							</section>
-							<section className="signed-panel">
-								<div className="signed-top">
-									<Icon name="brief" />
-									<span>Modeled signed value</span>
-								</div>
-								<strong>{money(totals.revenue)}</strong>
+						<div className="acquisition-story panel">
+							<div>
+								<h2>You handle the homeowner. We handle acquisition.</h2>
 								<p>
-									{totals.wins} won jobs <span>/</span> {totals.estimates}{" "}
-									estimates
+									In the pilot, calls and form requests go straight to your
+									chosen phone and inbox. Keep using your current sales process.
 								</p>
-								<div>
-									<span>Signed value / ad spend</span>
-									<b>{totals.returnOnAdSpend?.toFixed(1) ?? "—"}×</b>
-								</div>
-								<small>
-									Fictional outcomes, not achieved results. Contract value is
-									not cash collected or profit; costs beyond media are excluded.
-								</small>
-							</section>
+							</div>
+							<ol>
+								<li>
+									<strong>We bring the right traffic</strong>
+									<span>
+										Google ads lead to a page about their roofing need.
+									</span>
+								</li>
+								<li>
+									<strong>You receive the lead</strong>
+									<span>
+										Your team follows up as usual. No new CRM to learn.
+									</span>
+								</li>
+								<li>
+									<strong>We improve the advertising</strong>
+									<span>
+										Review lead quality, search terms and cost, with spending
+										safeguards.
+									</span>
+								</li>
+							</ol>
+							<Link className="text-link" href="/">
+								Try the search-to-page demo <Icon name="arrow" />
+							</Link>
 						</div>
 						<div className="attention-strip">
 							<span className="attention-icon">
-								<Icon name="funnel" />
+								<Icon name="search" />
 							</span>
 							<div>
 								<strong>
-									{totals.qualifiedLeads - totals.bookedInspections} qualified
-									opportunities have not reached a booking.
+									{money(waste)} in search-term spend needs a closer look.
 								</strong>
 								<p>
-									{selected === "all"
-										? "Repair books 2 of 7 qualified leads (29%); the account books 50%. Review intent and follow-up before adding spend."
-										: `${totals.bookedInspections} of ${totals.qualifiedLeads} qualified leads have booked. Inspect contact history before diagnosing the cause.`}
+									Selected mock terms flagged for waste review. This is spend to
+									investigate, not guaranteed savings.
 								</p>
 							</div>
-							<a href="#analyst">
-								Review evidence <Icon name="arrow" />
+							<a href="#search">
+								Review search terms <Icon name="arrow" />
 							</a>
 						</div>
+						<details className="optional-outcomes panel">
+							<summary>
+								Optional: inspections, estimates and signed jobs
+							</summary>
+							<p className="optional-intro">
+								If you share sales updates later, we can add them here. These
+								fictional examples show future visibility; the month-one service
+								does not require CRM access or sales-stage updates.
+							</p>
+							<div className="outcome-grid">
+								<section className="funnel-panel panel">
+									<div className="panel-heading">
+										<div>
+											<h2>The path to a signed roof</h2>
+											<p>Cumulative stages reached by this lead cohort</p>
+										</div>
+										<span className="status">{totals.leads} leads</span>
+									</div>
+									<div className="cohort-chart">
+										{stages.map((stage, index) => (
+											<div className="cohort-column" key={stage.label}>
+												<div className="cohort-label">
+													<span>{stage.label}</span>
+													<strong>{stage.count}</strong>
+												</div>
+												<div className="cohort-track">
+													<div
+														style={
+															{
+																"--bar": `${totals.leads ? (stage.count / totals.leads) * 100 : 0}%`,
+																"--stage": index,
+															} as CSSProperties
+														}
+													/>
+												</div>
+												<div className="cohort-conversion">
+													{index === 0 ? (
+														"Starting cohort"
+													) : (
+														<>
+															<b>{percent(stage.conversion)}</b> from prior
+															stage
+														</>
+													)}
+												</div>
+											</div>
+										))}
+									</div>
+									<p className="panel-footnote">
+										Stages overlap; do not add them together. Not yet advanced
+										does not mean lost.
+									</p>
+								</section>
+								<section className="signed-panel">
+									<div className="signed-top">
+										<Icon name="brief" />
+										<span>Modeled signed value</span>
+									</div>
+									<strong>{money(totals.revenue)}</strong>
+									<p>
+										{totals.wins} won jobs <span>/</span> {totals.estimates}{" "}
+										estimates
+									</p>
+									<div>
+										<span>Signed value / ad spend</span>
+										<b>{totals.returnOnAdSpend?.toFixed(1) ?? "—"}×</b>
+									</div>
+									<small>
+										Fictional outcomes, not achieved results. Contract value is
+										not cash collected or profit; costs beyond media are
+										excluded.
+									</small>
+								</section>
+							</div>
+						</details>
 					</section>
 
 					<section id="campaigns" className="dashboard-section">
 						<div className="section-title">
 							<div>
 								<h2>Which campaigns produce opportunities?</h2>
-								<p>Compare acquisition cost with the sales outcome.</p>
+								<p>
+									Compare calls, form requests and qualified-lead cost by
+									roofing need.
+								</p>
 							</div>
 							<span>{rows.length} campaigns in scope</span>
 						</div>
@@ -275,9 +332,9 @@ export default function OperatorDashboard() {
 										<th scope="col">Spend</th>
 										<th scope="col">Qualified</th>
 										<th scope="col">CPQL</th>
-										<th scope="col">Booked</th>
-										<th scope="col">Cost / booked</th>
-										<th scope="col">Won</th>
+										<th scope="col">Calls</th>
+										<th scope="col">Forms</th>
+										<th scope="col">CPL</th>
 										<th scope="col">Review</th>
 									</tr>
 								</thead>
@@ -294,9 +351,9 @@ export default function OperatorDashboard() {
 												<small>of {c.leads} leads</small>
 											</td>
 											<td>{money(c.metrics.cpql)}</td>
-											<td>{c.bookedInspections}</td>
-											<td>{money(c.metrics.costPerBookedInspection)}</td>
-											<td>{c.wins}</td>
+											<td>{c.calls}</td>
+											<td>{c.formLeads}</td>
+											<td>{money(c.metrics.cpl)}</td>
 											<td>
 												<span className={statusClass(c.status)}>
 													{c.status}
@@ -324,15 +381,23 @@ export default function OperatorDashboard() {
 											<dd>{c.qualifiedLeads}</dd>
 										</div>
 										<div>
-											<dt>Cost / booked</dt>
-											<dd>{money(c.metrics.costPerBookedInspection)}</dd>
+											<dt>Cost / qualified</dt>
+											<dd>{money(c.metrics.cpql)}</dd>
 										</div>
 									</dl>
 									<details>
-										<summary>View funnel and costs</summary>
+										<summary>Calls, forms and optional sales updates</summary>
 										<dl className="evidence-grid">
 											<div>
-												<dt>Leads</dt>
+												<dt>Calls</dt>
+												<dd>{c.calls}</dd>
+											</div>
+											<div>
+												<dt>Form leads</dt>
+												<dd>{c.formLeads}</dd>
+											</div>
+											<div>
+												<dt>Total leads</dt>
 												<dd>{c.leads}</dd>
 											</div>
 											<div>
@@ -340,15 +405,15 @@ export default function OperatorDashboard() {
 												<dd>{money(c.metrics.cpql)}</dd>
 											</div>
 											<div>
-												<dt>Booked</dt>
+												<dt>Booked (optional)</dt>
 												<dd>{c.bookedInspections}</dd>
 											</div>
 											<div>
-												<dt>Estimates</dt>
+												<dt>Estimates (optional)</dt>
 												<dd>{c.estimates}</dd>
 											</div>
 											<div>
-												<dt>Won jobs</dt>
+												<dt>Won jobs (optional)</dt>
 												<dd>{c.wins}</dd>
 											</div>
 											<div>
@@ -366,15 +431,15 @@ export default function OperatorDashboard() {
 								<p>
 									{totals.clicks} clicks ·{" "}
 									{money(totals.clicks ? totals.spend / totals.clicks : null)}{" "}
-									average CPC · {money(totals.cpl)} raw CPL · {totals.estimates}{" "}
-									estimates at {money(totals.costPerEstimate)} each.
+									average CPC · {money(totals.cpl)} raw CPL.
 								</p>
 								<p>
 									Qualified = homeowner, supported ZIP, relevant roof need and
 									valid phone format. This is a rule-based screen, not verified
-									contactability. Booked = appointment recorded; won = signed
-									job recorded. CPQL and booking CPA use all campaign spend. No
-									denominator is shown as “—”.
+									contactability. Calls need a quality review; a call click
+									alone is not a qualified lead. Booked = optional appointment
+									recorded; won = signed job recorded. CPQL and booking CPA use
+									all campaign spend. No denominator is shown as “—”.
 								</p>
 							</div>
 						</details>
@@ -431,7 +496,7 @@ export default function OperatorDashboard() {
 												<span className="term-cost">
 													{money(term.spend)}
 													<small>
-														{term.qualified} qualified / {term.booked} booked
+														{term.qualified} qualified / {term.leads} leads
 													</small>
 												</span>
 												<span className={statusClass(term.disposition)}>
@@ -449,7 +514,7 @@ export default function OperatorDashboard() {
 												<p>
 													{term.disposition === "Negative review"
 														? "Review the exact query and match scope before excluding traffic. Zero qualified outcomes do not by themselves authorize a change."
-														: "Use downstream outcomes to assess intent. Do not expand spend from this term alone."}
+														: "Review qualified-lead cost and search relevance. Add sales outcomes when available. Do not expand spend from this term alone."}
 												</p>
 												<a className="text-link" href="#analyst">
 													Inspect the analyst queue <Icon name="arrow" />
@@ -497,7 +562,8 @@ export default function OperatorDashboard() {
 								Account-wide · {reportingWindow} · {observationDays} days
 							</span>
 							<span>
-								96% source coverage / 92% outcome coverage / 4% mismatch
+								Mock sample includes optional sales signals; live optimization
+								requires verified tracking
 							</span>
 						</div>
 						<div className="recommendation-toolbar">
@@ -753,11 +819,11 @@ export default function OperatorDashboard() {
 							<h2>
 								Build a better path
 								<br />
-								from search to signed work.
+								from search to qualified leads.
 							</h2>
 							<p>
-								30 days to put the acquisition workflow to work with your team.
-								Define success and the media budget before launch.
+								30 days of ads, focused landing pages and leads sent directly to
+								your team. Define success and the media budget before launch.
 							</p>
 						</div>
 						<div className="pilot-terms">
@@ -787,7 +853,9 @@ export default function OperatorDashboard() {
 										budget.
 									</li>
 									<li>
-										Your team updates booked, estimated and won outcomes weekly.
+										Share Google Ads access (or let us help set it up), approve
+										your business details, and choose where leads should arrive.
+										Sales updates are optional.
 									</li>
 									<li>
 										You retain ownership of your ad account and business data.

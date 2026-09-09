@@ -7,6 +7,8 @@ export type CampaignRow = FunnelMetricsInput & {
 	name: string;
 	intent: string;
 	dailyBudget: number;
+	calls: number;
+	formLeads: number;
 	status: "Healthy" | "Watch" | "Waste review";
 };
 
@@ -19,6 +21,8 @@ const campaignInputs: CampaignRow[] = [
 		spend: 1842,
 		clicks: 91,
 		leads: 14,
+		calls: 5,
+		formLeads: 9,
 		qualifiedLeads: 11,
 		bookedInspections: 6,
 		estimates: 4,
@@ -34,6 +38,8 @@ const campaignInputs: CampaignRow[] = [
 		spend: 1106,
 		clicks: 68,
 		leads: 8,
+		calls: 3,
+		formLeads: 5,
 		qualifiedLeads: 5,
 		bookedInspections: 4,
 		estimates: 3,
@@ -49,6 +55,8 @@ const campaignInputs: CampaignRow[] = [
 		spend: 812,
 		clicks: 74,
 		leads: 10,
+		calls: 4,
+		formLeads: 6,
 		qualifiedLeads: 7,
 		bookedInspections: 2,
 		estimates: 1,
@@ -64,6 +72,8 @@ const campaignInputs: CampaignRow[] = [
 		spend: 426,
 		clicks: 57,
 		leads: 4,
+		calls: 1,
+		formLeads: 3,
 		qualifiedLeads: 1,
 		bookedInspections: 0,
 		estimates: 0,

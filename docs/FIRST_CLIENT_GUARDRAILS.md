@@ -10,6 +10,6 @@ Before launch, agree in writing on:
 - Access/ownership of Google Ads account
 - Who approves ad claims
 - What counts as a duplicate, spam, job-seeker, vendor or out-of-area lead
-- How quickly sales outcomes will be updated
+- Optional sales updates if the roofer wants to share them; no mandatory stage workflow
 
 Do not guarantee profit. Do not guarantee a fixed lead count before enough auction/budget data exists. The strongest initial risk reversal is free setup + free first-month management while the client directly funds media.

@@ -1,5 +1,7 @@
 # Opportunities for founding client #1
 
+Current scope: V1 acquisition and qualified leads; V2 optional CRM/sales attribution. This supersedes mandatory downstream-update language in the historical audit. The search-to-page walkthrough now makes message matching explicit, with no conversion-lift claim.
+
 Ranked by expected business impact and closeness to the first pilot. Impact is a hypothesis, not a forecast. Confidence is confidence in the problem/approach, not a promised lift. NOW does not mean a live integration is authorized or configured.
 
 | Rank / idea | Why it matters / expected impact | Confidence | Effort | Risk | Client #1 relevance | Decision |
@@ -10,7 +12,7 @@ Ranked by expected business impact and closeness to the first pilot. Impact is a
 | 4. Homeowner-first, intent-matched intake | Replacement, storm and repair visitors should recognize their problem immediately. Reduce irrelevant explanation and optional-field friction. | High | Medium | Low | Essential | NOW — implemented three allowlisted intents, clear next step, optional roof age |
 | 5. Inspectable decision and policy evidence | A roofer can see why spend might change and why it sometimes must not. Improves trust in delegation. | High | Medium | Low in mock | Essential | NOW — complete recommendation evidence, read-only policy lab and audit details |
 | 6. Source continuity and qualification receipt | Prevent source loss through same-session navigation and distinguish valid intake from business qualification. | High | Small | Low in mock; privacy review before live | Essential | NOW — session capture and typed mock receipt; real routing still gated |
-| 7. Weekly owner economics review | Review booking CPA, estimate quality, wins, signed value and unresolved outcomes. A consistent review makes retention about operations. | High | Small | Low | High | NOW — use reconciled dashboard; no automated email sending yet |
+| 7. Weekly owner economics review | Review spend, calls, forms, qualified-lead cost and search quality. Add sales outcomes only if supplied. A consistent review makes retention about operations. | High | Small | Low | High | NOW — use reconciled dashboard; no automated email sending yet |
 | 8. Qualified/converted-lead feedback to Google | Downstream outcomes can become optimization inputs instead of raw form counts. High potential once trustworthy volume exists. | High for measurement; medium for lift | Large | High: incorrect signals can misdirect bidding | High after launch | LATER — Data Manager adapter after consent, reconciliation and test upload |
 | 9. Verified job evidence and a focused landing experiment | Actual crew/job photography and approved homeowner proof can answer trust objections; test one change at a time. | Medium | Medium | Medium: rights and claims | High once a client exists | LATER — wait for authentic client assets and enough traffic |
 | 10. Weather-triggered campaign expansion | Timely demand may exist, but weather does not prove property damage or contractor capacity. Easy distraction before baseline. | Low before client data | Large | High: claims, coverage and spend | Low initially | REJECT for MVP; revisit only with capacity, evidence and scoped approval |
@@ -25,4 +27,4 @@ Google's current [conversion category documentation](https://developers.google.c
 
 ## The next move
 
-Select one established Houston residential roofer whose team can answer paid demand. Prepare a short owner-specific acquisition diagnosis and use the two-surface demo in a discovery conversation. Agree the response owner, qualification definition, media budget and weekly outcome review before offering the 30-day pilot. Do not send unsolicited messages from this repository workflow.
+Select one established Houston residential roofer whose team can answer paid demand. Prepare a short owner-specific acquisition diagnosis and use the two-surface demo in a discovery conversation. Agree the response owner, qualification definition, media budget and weekly acquisition review before offering the 30-day pilot. Do not send unsolicited messages from this repository workflow.
