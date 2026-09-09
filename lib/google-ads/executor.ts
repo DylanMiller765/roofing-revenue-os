@@ -30,6 +30,8 @@ export class ControlledGoogleAdsExecutor {
       supportingMetrics: proposal.supportingMetrics,
       confidence: proposal.confidence,
       risk: proposal.risk,
+      approvalStatus: proposal.approval ? "approved" : decision.requiresApproval ? "missing" : "not-required",
+      rollbackPlan: proposal.rollbackPlan,
       policyReasons: decision.reasons,
       approval: proposal.approval
     };
@@ -39,15 +41,18 @@ export class ControlledGoogleAdsExecutor {
       return null;
     }
 
-    await this.auditStore.append({ ...baseAudit, id: `${auditPrefix}-validated`, status: "validated" });
+    await this.auditStore.append({ ...baseAudit, id: `${auditPrefix}-authorized`, status: "authorized" });
 
     try {
+      await this.adapter.mutate(proposal, { validateOnly: true });
+      await this.auditStore.append({ ...baseAudit, id: `${auditPrefix}-validated`, status: "validated" });
       const result = await this.adapter.mutate(proposal, { validateOnly: false });
       await this.auditStore.append({
         ...baseAudit,
         id: `${auditPrefix}-executed`,
         status: "executed",
-        externalRequestId: result.externalRequestId
+        externalRequestId: result.externalRequestId,
+        result
       });
       return result;
     } catch (error) {

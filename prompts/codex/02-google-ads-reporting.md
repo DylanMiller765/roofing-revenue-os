@@ -1,4 +1,4 @@
-Implement a READ-ONLY Google Ads adapter behind an interface. Do not add any mutate/write calls.
+Implement a Google Ads reporting adapter behind an interface. Keep this adapter free of mutate/write calls so reporting, controlled mutations and offline outcome uploads retain separate deployment boundaries.
 
 Requirements:
 - Read account/customer metadata.
@@ -11,4 +11,4 @@ Requirements:
 - Document required OAuth/developer token setup separately.
 - Never commit secrets.
 
-Architecture note: keep offline qualified/converted lead uploads OUT of this adapter. Those belong in a separate Google Ads Data Manager API adapter; this task is read-only Google Ads reporting.
+Architecture note: keep controlled mutations and offline qualified/converted lead uploads OUT of this reporting adapter. Mutations belong behind the risk policy and executor; outcome uploads belong in a separate Google Ads Data Manager API adapter.

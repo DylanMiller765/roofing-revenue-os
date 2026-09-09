@@ -8,6 +8,7 @@ const supportedActionTypes = new Set([
   "create-responsive-search-ad",
   "add-negative-keyword",
   "pause-entity",
+  "enable-entity",
   "adjust-bid",
   "adjust-campaign-budget",
   "restructure-campaign",
@@ -41,6 +42,7 @@ const dataSensitiveActions = new Set([
 
 export function evaluateChangePolicy(proposal: ChangeProposal): PolicyDecision {
   const reasons: string[] = [];
+  let requiresApproval = proposal.risk === "high";
 
   if (!supportedActionTypes.has(proposal.actionType)) {
     reasons.push("The requested action is not supported; delete operations are intentionally unavailable.");
@@ -66,8 +68,23 @@ export function evaluateChangePolicy(proposal: ChangeProposal): PolicyDecision {
     reasons.push("Any action with material spend impact must be classified as high risk.");
   }
 
-  if (proposal.risk === "medium" && proposal.confidence !== "high") {
-    reasons.push("Medium-risk changes require high-confidence evidence.");
+  if (!proposal.evidenceSufficient) {
+    reasons.push("The proposal does not meet its configured evidence threshold.");
+  }
+
+  if (!proposal.reversible || !proposal.rollbackPlan?.trim()) {
+    reasons.push("Automated changes require a reversible action and an explicit rollback plan.");
+  }
+
+  if (proposal.risk !== "high" && proposal.confidence !== "high") {
+    reasons.push("Automatic low- and medium-risk changes require high-confidence evidence.");
+  }
+
+  if (
+    proposal.risk === "medium"
+    && (proposal.minimumSampleSize === undefined || proposal.sampleSize === undefined)
+  ) {
+    reasons.push("Medium-risk changes require an explicit sample size and minimum-data threshold.");
   }
 
   if (
@@ -100,6 +117,9 @@ export function evaluateChangePolicy(proposal: ChangeProposal): PolicyDecision {
       if (accountAfter > accountStart * 1.15 && proposal.risk !== "high") {
         reasons.push("An account daily budget increase above 15% must be classified as high risk.");
       }
+      if (accountAfter > accountStart * 1.15) {
+        requiresApproval = true;
+      }
       if (campaignAfter > campaignBefore * 1.2) {
         reasons.push("A single campaign budget increase may not exceed 20% in one change.");
       }
@@ -109,13 +129,12 @@ export function evaluateChangePolicy(proposal: ChangeProposal): PolicyDecision {
     }
   }
 
-  if (proposal.confidence === "low" && proposal.actionType !== "create-experiment") {
-    reasons.push("Low-confidence evidence cannot support a live optimization change.");
+  if (proposal.risk === "high" && proposal.confidence === "low") {
+    reasons.push("Low-confidence evidence cannot support a high-risk live change.");
   }
 
-  const requiresApproval = true;
-  if (!proposal.approval) {
-    reasons.push("Repository policy requires explicit human approval scoped to this change.");
+  if (requiresApproval && !proposal.approval) {
+    reasons.push("This high-risk change requires explicit human approval scoped to the exact proposal.");
   }
 
   return {

@@ -7,6 +7,7 @@ export type GoogleAdsActionType =
   | "create-responsive-search-ad"
   | "add-negative-keyword"
   | "pause-entity"
+  | "enable-entity"
   | "adjust-bid"
   | "adjust-campaign-budget"
   | "restructure-campaign"
@@ -31,6 +32,9 @@ export type ChangeProposal = {
   supportingMetrics: Evidence;
   confidence: Confidence;
   risk: ChangeRisk;
+  evidenceSufficient: boolean;
+  reversible: boolean;
+  rollbackPlan?: string;
   tracking: TrackingHealth;
   contentClaimsVerified?: boolean;
   conversionTrackingDemonstrablyBroken?: boolean;
@@ -55,7 +59,13 @@ export type PolicyDecision = {
   reasons: string[];
 };
 
-export type ChangeAuditStatus = "blocked" | "validated" | "executed" | "failed";
+export type ChangeAuditStatus = "authorized" | "blocked" | "validated" | "executed" | "failed";
+export type ApprovalStatus = "not-required" | "approved" | "missing";
+
+export type GoogleAdsMutationResult = {
+  externalRequestId: string;
+  resourceNames: string[];
+};
 
 export type ChangeAuditEntry = {
   id: string;
@@ -71,16 +81,14 @@ export type ChangeAuditEntry = {
   supportingMetrics: Evidence;
   confidence: Confidence;
   risk: ChangeRisk;
+  approvalStatus: ApprovalStatus;
+  rollbackPlan?: string;
   status: ChangeAuditStatus;
   policyReasons: string[];
   approval?: ChangeProposal["approval"];
   externalRequestId?: string;
+  result?: GoogleAdsMutationResult;
   error?: string;
-};
-
-export type GoogleAdsMutationResult = {
-  externalRequestId: string;
-  resourceNames: string[];
 };
 
 export interface GoogleAdsMutationAdapter {

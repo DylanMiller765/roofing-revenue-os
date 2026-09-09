@@ -47,7 +47,7 @@ Every recommendation contains structured evidence, severity, confidence and stat
 The mutation boundary supports typed proposals for:
 
 - creating campaigns, ad groups, keywords, responsive search ads and negative keywords;
-- pausing campaign elements instead of deleting them;
+- pausing or re-enabling campaign elements instead of deleting them;
 - adjusting bids and campaign budgets;
 - restructuring campaigns and creating experiments;
 - separately classified high-risk changes such as bidding-strategy or material geographic changes.
@@ -56,9 +56,13 @@ There is intentionally no delete action. Conversion tracking can be changed only
 
 ### Effective execution policy
 
-The requested operating model distinguishes low-, medium- and high-risk changes. However, the repository-level `AGENTS.md` currently requires every Google Ads write to receive explicit human approval. That stricter rule wins: all live proposals remain `approval required`, including low-risk proposals. Approval is scoped to one exact change and cannot be reused.
+The repository-level `AGENTS.md` defines risk-gated controlled execution:
 
-No live Google Ads mutation adapter is configured in the MVP. `DisabledGoogleAdsMutationAdapter` fails closed, and the dashboard uses only mock policy evaluations.
+- Low risk may auto-execute only with high confidence, sufficient evidence, reversibility and an explicit rollback plan.
+- Medium risk may auto-execute only with high confidence, sufficient evidence, healthy tracking, an explicit passing sample threshold, reversibility, rollback and all hard limits satisfied.
+- High risk requires explicit human approval scoped to the exact proposal. Large account-level budget increases, bidding-strategy changes, material geographic changes, new service categories, major restructuring and conversion-definition changes are high risk.
+
+No live Google Ads mutation adapter or credentials are configured in the MVP. `DisabledGoogleAdsMutationAdapter` fails closed, and the dashboard uses only mock policy evaluations. This environment therefore executes no account changes even when the architecture would authorize an automatic low- or medium-risk proposal.
 
 ### Spend protection
 
@@ -76,10 +80,10 @@ Every attempted change records:
 - previous and new values;
 - reason and structured supporting metrics;
 - confidence and risk;
-- approval identity/time/scope when present;
-- policy reasons, execution status, external request ID and error when applicable.
+- explicit approval status plus identity/time/scope when approval is required;
+- rollback plan, policy reasons, execution status, provider validation result, external request ID and error when applicable.
 
-The planned Postgres table is append-only: updates and deletes are rejected by a trigger. Blocked attempts are logged without calling the Google Ads adapter.
+The planned Postgres table is append-only: updates and deletes are rejected by a trigger. Blocked attempts are logged without calling the Google Ads adapter. Authorized changes are logged before any provider call, then validated with the provider before execution.
 
 ## Optional language-model boundary
 
@@ -88,7 +92,7 @@ An optional summarizer may receive only structured calculated recommendation evi
 ## Adapter separation
 
 - Reporting adapter: Google Ads performance/search-term reads only.
-- Mutation adapter: separately deployed controlled writes behind policy and approval.
+- Mutation adapter: separately deployed controlled writes behind deterministic policy and risk-based approval.
 - Offline outcome adapter: future Google Ads Data Manager qualified/converted-lead uploads.
 - CRM adapter: lead-stage and signed-job value reads.
 - Audit store: append-only mutation attempt/result records.

@@ -23,24 +23,25 @@ function proposal(overrides: Partial<ChangeProposal> = {}): ChangeProposal {
     supportingMetrics: { spend: 126, qualifiedLeads: 0 },
     confidence: "high",
     risk: "low",
+    evidenceSufficient: true,
+    reversible: true,
+    rollbackPlan: "Remove the newly added negative keyword.",
     tracking: reliableTracking,
     ...overrides
   };
 }
 
 describe("controlled Google Ads write policy", () => {
-  it("requires separately scoped human approval even for low-risk changes", () => {
+  it("auto-authorizes a reversible low-risk change with sufficient high-confidence evidence", () => {
     const decision = evaluateChangePolicy(proposal());
-    expect(decision.allowed).toBe(false);
-    expect(decision.requiresApproval).toBe(true);
-    expect(decision.reasons.join(" ")).toContain("explicit human approval");
+    expect(decision).toEqual({ allowed: true, requiresApproval: false, validateOnly: false, reasons: [] });
   });
 
-  it("allows a supported approved low-risk change with reliable tracking", () => {
+  it("does not turn an optional low-risk approval into a universal approval requirement", () => {
     const decision = evaluateChangePolicy(proposal({
       approval: { approvedBy: "operator@example.test", approvedAt: "2026-09-08T12:00:00Z", scope: "this-change-only" }
     }));
-    expect(decision).toEqual({ allowed: true, requiresApproval: true, validateOnly: false, reasons: [] });
+    expect(decision).toEqual({ allowed: true, requiresApproval: false, validateOnly: false, reasons: [] });
   });
 
   it("blocks optimization when tracking quality is uncertain", () => {
@@ -102,6 +103,21 @@ describe("controlled Google Ads write policy", () => {
     expect(decision.reasons.join(" ")).toContain("high-confidence");
   });
 
+  it("auto-authorizes medium risk only with strong evidence, sufficient samples, and rollback", () => {
+    const decision = evaluateChangePolicy(proposal({
+      risk: "medium",
+      sampleSize: 30,
+      minimumSampleSize: 20
+    }));
+    expect(decision).toEqual({ allowed: true, requiresApproval: false, validateOnly: false, reasons: [] });
+  });
+
+  it("blocks automatic execution when rollback is unavailable", () => {
+    const decision = evaluateChangePolicy(proposal({ reversible: false, rollbackPlan: undefined }));
+    expect(decision.allowed).toBe(false);
+    expect(decision.reasons.join(" ")).toContain("rollback plan");
+  });
+
   it("blocks claim-bearing ad creation until every claim is verified", () => {
     const unverified = evaluateChangePolicy(proposal({
       actionType: "create-responsive-search-ad",
@@ -148,12 +164,30 @@ describe("controlled Google Ads write policy", () => {
     expect(decision.reasons.join(" ")).toContain("sample is too small");
   });
 
+  it("requires approval for high-risk changes even when all evidence gates pass", () => {
+    const highRisk = proposal({
+      actionType: "create-campaign",
+      resourceType: "campaign",
+      risk: "high",
+      contentClaimsVerified: true
+    });
+    const missingApproval = evaluateChangePolicy(highRisk);
+    const approved = evaluateChangePolicy({
+      ...highRisk,
+      approval: { approvedBy: "operator@example.test", approvedAt: "2026-09-08T12:00:00Z", scope: "this-change-only" }
+    });
+
+    expect(missingApproval.allowed).toBe(false);
+    expect(missingApproval.requiresApproval).toBe(true);
+    expect(approved.allowed).toBe(true);
+  });
+
   it("records a complete audit entry for a blocked change without calling the adapter", async () => {
     const adapter: GoogleAdsMutationAdapter = { mutate: vi.fn() };
     const auditStore = new InMemoryAuditStore();
     const executor = new ControlledGoogleAdsExecutor(adapter, auditStore);
 
-    await expect(executor.execute(proposal())).resolves.toBeNull();
+    await expect(executor.execute(proposal({ evidenceSufficient: false }))).resolves.toBeNull();
     expect(adapter.mutate).not.toHaveBeenCalled();
     expect(auditStore.entries[0]).toMatchObject({
       proposalId: "CHANGE-1",
@@ -167,18 +201,32 @@ describe("controlled Google Ads write policy", () => {
     expect(auditStore.entries[0].timestamp).toEqual(expect.any(String));
   });
 
-  it("executes and audits only a separately approved change", async () => {
+  it("provider-validates, executes, and audits an auto-authorized low-risk change", async () => {
     const mutate = vi.fn().mockResolvedValue({ externalRequestId: "req-1", resourceNames: ["customers/mock/criteria/1"] });
     const auditStore = new InMemoryAuditStore();
     const executor = new ControlledGoogleAdsExecutor({ mutate }, auditStore);
-    const approved = proposal({
-      approval: { approvedBy: "operator@example.test", approvedAt: "2026-09-08T12:00:00Z", scope: "this-change-only" }
-    });
+    const automatic = proposal();
 
-    await expect(executor.execute(approved)).resolves.toMatchObject({ externalRequestId: "req-1" });
-    expect(mutate).toHaveBeenCalledWith(approved, { validateOnly: false });
+    await expect(executor.execute(automatic)).resolves.toMatchObject({ externalRequestId: "req-1" });
+    expect(mutate).toHaveBeenNthCalledWith(1, automatic, { validateOnly: true });
+    expect(mutate).toHaveBeenNthCalledWith(2, automatic, { validateOnly: false });
+    expect(auditStore.entries).toHaveLength(3);
+    expect(auditStore.entries[0]).toMatchObject({ status: "authorized", approvalStatus: "not-required" });
+    expect(auditStore.entries[1]).toMatchObject({ status: "validated" });
+    expect(auditStore.entries[2]).toMatchObject({ status: "executed", externalRequestId: "req-1", result: { externalRequestId: "req-1" } });
+  });
+
+  it("never executes when provider validation fails and preserves the failure audit", async () => {
+    const mutate = vi.fn().mockRejectedValue(new Error("Provider validation rejected the operation"));
+    const auditStore = new InMemoryAuditStore();
+    const executor = new ControlledGoogleAdsExecutor({ mutate }, auditStore);
+    const automatic = proposal();
+
+    await expect(executor.execute(automatic)).rejects.toThrow("Provider validation rejected");
+    expect(mutate).toHaveBeenCalledTimes(1);
+    expect(mutate).toHaveBeenCalledWith(automatic, { validateOnly: true });
     expect(auditStore.entries).toHaveLength(2);
-    expect(auditStore.entries[0]).toMatchObject({ status: "validated" });
-    expect(auditStore.entries[1]).toMatchObject({ status: "executed", externalRequestId: "req-1" });
+    expect(auditStore.entries[0]).toMatchObject({ status: "authorized" });
+    expect(auditStore.entries[1]).toMatchObject({ status: "failed", error: "Provider validation rejected the operation" });
   });
 });

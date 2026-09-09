@@ -77,6 +77,8 @@ export const auditTrail: ChangeAuditEntry[] = [{
   supportingMetrics: { spend: 126, clicks: 21, qualifiedLeads: 0, bookedInspections: 0 },
   confidence: "high",
   risk: "low",
+  approvalStatus: "not-required",
+  rollbackPlan: "Remove the newly added negative keyword.",
   status: "blocked",
-  policyReasons: ["Mock mode has no credentials.", "Explicit human approval is required for this change."]
+  policyReasons: ["Mock environment has no live provider adapter or credentials."]
 }];

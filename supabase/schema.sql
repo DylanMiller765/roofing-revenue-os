@@ -65,10 +65,13 @@ create table if not exists google_ads_change_audit (
   supporting_metrics jsonb not null default '{}'::jsonb,
   confidence text not null,
   risk text not null,
+  approval_status text not null,
+  rollback_plan text,
   status text not null,
   policy_reasons jsonb not null default '[]'::jsonb,
   approval jsonb,
   external_request_id text,
+  result jsonb,
   error text
 );
 

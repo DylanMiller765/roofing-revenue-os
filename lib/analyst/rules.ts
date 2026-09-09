@@ -68,7 +68,7 @@ export function runAnalyst(input: AnalystInput): AnalystResult {
         id: recommendationId("NEG", term.term),
         className: "negative-keyword",
         title: `Review “${term.term}” as a negative keyword`,
-        detail: "Meaningful spend produced no qualified homeowner outcome. Confirm match-type implications before approval.",
+        detail: "Meaningful spend produced no qualified homeowner outcome. Confirm match-type implications before risk-gated execution.",
         evidence: {
           campaign: term.campaignName,
           spend: term.spend,
@@ -157,7 +157,7 @@ export function runAnalyst(input: AnalystInput): AnalystResult {
         id: recommendationId("BUDGET", campaign.id),
         className: "budget-reallocation",
         title: `Test a controlled budget increase for ${campaign.name}`,
-        detail: "Booked-inspection efficiency is stronger than the account average even if raw CPL or CPQL is not. Any proposal still needs budget-cap checks, fresh data and approval.",
+        detail: "Booked-inspection efficiency is stronger than the account average even if raw CPL or CPQL is not. Any proposal still needs fresh data, rollback and risk/budget checks.",
         evidence: {
           spend: campaign.spend,
           leads: campaign.leads,

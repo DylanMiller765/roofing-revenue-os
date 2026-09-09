@@ -22,19 +22,19 @@
 - Mock lead capture
 
 ### v1
-- Google Ads read-only via plugin or API
+- Google Ads reporting connector via plugin or API
 - Supabase persistence
 - Call-tracking provider
 - CRM or lightweight internal pipeline
 
 ### v2
 - Offline qualified/converted lead uploads via Google Ads Data Manager API
-- Human-approved Google Ads write actions
+- Controlled Google Ads writes with automatic low/qualifying-medium execution and approval-gated high-risk actions
 - Weather/storm trigger data
 
 ## Non-goals for v0
 - Full CRM replacement
-- Autonomous budget changes
+- Live Google Ads execution in the mock/demo environment
 - AI phone receptionist
 - Meta Ads
 - Multi-vertical support
