@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { clientConfig } from "@/config/client";
 import { type CSSProperties, useState } from "react";
 import {
 	campaigns,
@@ -96,9 +97,10 @@ export default function OperatorDashboard() {
 					</span>
 				</Link>
 				<div className="workspace">
-					<span className="workspace-avatar">LS</span>
+					<span className="workspace-avatar">RR</span>
 					<div>
-						Lone Star Roof<small>Houston, Texas</small>
+						{clientConfig.name}
+						<small>Proposed pilot · Mock data</small>
 					</div>
 					<span className="demo-tag">Demo</span>
 				</div>

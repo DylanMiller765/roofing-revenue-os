@@ -1,7 +1,7 @@
 export const landingIntents = {
 	replacement: {
 		label: "Roof replacement",
-		search: "roof replacement houston",
+		search: "roof replacement League City",
 		title: "A new roof starts with a clear picture.",
 		body: "Considering a roof replacement? Share a few details about your Houston home to start an inspection request.",
 		action: "Request a replacement inspection",
@@ -10,7 +10,7 @@ export const landingIntents = {
 	},
 	storm: {
 		label: "Storm damage",
-		search: "hail damage roof inspection",
+		search: "storm roof inspection Clear Lake",
 		title: "After the storm, start with your roof.",
 		body: "Noticed missing shingles or a new leak? Tell us what changed and start a roof inspection request for your Houston home.",
 		action: "Request a storm damage inspection",
@@ -19,7 +19,7 @@ export const landingIntents = {
 	},
 	repair: {
 		label: "Roof repair",
-		search: "roof leak repair near me",
+		search: "roof leak repair Clear Lake",
 		title: "A roof leak needs a clear next step.",
 		body: "Tell us where you’re seeing a problem. Start with a roof inspection request for your Houston home.",
 		action: "Request a leak inspection",

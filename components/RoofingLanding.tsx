@@ -12,15 +12,17 @@ import {
 import LeadForm from "./LeadForm";
 import RoofingLogo from "./RoofingLogo";
 import Icon from "./Icon";
+import DemoCallButton from "./DemoCallButton";
+import { ronnieProof } from "@/config/ronnie-proof";
 
 const order: LandingIntent[] = ["replacement", "storm", "repair"];
 const scenes = {
 	replacement: {
-		title: "A new roof.\nA clearer path forward.",
+		title: "Your home.\nA roof you trust.",
 		description:
-			"Thinking about replacing your roof? Start with an inspection request and a conversation about what your Houston home needs.",
-		image: "/images/roof-replacement.webp",
-		alt: "Illustrative Houston home with a charcoal shingle roof and mature oak trees",
+			"Considering a new roof in League City? Start with a free inspection from Ronnie Roofer and a clear conversation about your options.",
+		image: "/images/ronnie/brick.webp",
+		alt: "Brick home and shingle roof pictured in Ronnie Roofer’s project gallery",
 		detail: "For the place you call home",
 		question: "A roof showing its age?",
 		answer:
@@ -29,9 +31,9 @@ const scenes = {
 	storm: {
 		title: "After the storm,\nstart with your roof.",
 		description:
-			"Missing shingles. A new water stain. Something that doesn’t look right. Request an inspection to take the next step.",
-		image: "/images/roof-storm.webp",
-		alt: "Illustrative shingle roof after rain beneath clearing storm clouds",
+			"Missing shingles or a new water stain after a storm? Start with a free roof inspection for your Clear Lake home.",
+		image: "/images/ronnie/workers.webp",
+		alt: "Roofing crew at work, pictured on Ronnie Roofer’s website",
 		detail: "A little clarity after the storm",
 		question: "Not sure what the storm left behind?",
 		answer:
@@ -40,9 +42,9 @@ const scenes = {
 	repair: {
 		title: "A small leak.\nA reason to take a look.",
 		description:
-			"A ceiling stain or a few loose shingles can leave you with questions. Tell us what’s happening and request a roof inspection.",
-		image: "/images/roof-repair.webp",
-		alt: "Illustrative close-up of roof shingles and chimney flashing",
+			"A ceiling stain. Loose shingles. A leak that keeps coming back. Tell Ronnie Roofer what’s happening at your Clear Lake home.",
+		image: "/images/ronnie/ranch.webp",
+		alt: "Shingle roof on a home pictured in Ronnie Roofer’s project gallery",
 		detail: "Start with the problem you can see",
 		question: "A leak doesn’t tell the whole story.",
 		answer:
@@ -64,6 +66,7 @@ export default function RoofingLanding({
 	const current = order.indexOf(intent);
 	const copy = landingIntents[intent];
 	const scene = scenes[intent];
+	const review = ronnieProof.reviews[intent];
 	useEffect(() => {
 		setIntent(initialIntent);
 	}, [initialIntent]);
@@ -95,9 +98,11 @@ export default function RoofingLanding({
 			</a>
 			<div className="roof-demo-note">
 				<div className="roof-wrap">
-					<span>Fictional company demo · No services offered</span>
-					<Link href="/operator">
-						How we manage your ads <Icon name="external" />
+					<span>
+						Ronnie Roofer · Independent proposal · Calls & forms simulated
+					</span>
+					<Link href="/pilot">
+						Your pilot proposal <Icon name="external" />
 					</Link>
 				</div>
 			</div>
@@ -106,7 +111,7 @@ export default function RoofingLanding({
 					<div className="roof-wrap intent-switcher-inner">
 						<div className="intent-instruction">
 							<strong>Different search. Different page.</strong>
-							<span>Slide to see what your customers would see.</span>
+							<span>Choose a search. See your page match it.</span>
 						</div>
 						<fieldset
 							className="search-slider"
@@ -155,16 +160,17 @@ export default function RoofingLanding({
 					<RoofingLogo />
 				</Link>
 				<nav aria-label="Page sections">
-					<a href="#approach">Our approach</a>
+					<a href="#work">Our work</a>
+					<a href="#reviews">Customer reviews</a>
 					<a href="#questions">Roofing questions</a>
 				</nav>
-				<a className="roof-call" href={`tel:${clientConfig.phone}`}>
+				<DemoCallButton className="roof-call">
 					<Icon name="phone" />
 					<span>
 						{clientConfig.phoneDisplay}
-						<small>Fictional demo number</small>
+						<small>Call Ronnie · Demo preview</small>
 					</span>
-				</a>
+				</DemoCallButton>
 			</header>
 			<section
 				className={`roof-hero ${showDemo ? "roof-hero--interactive" : ""}`}
@@ -242,7 +248,8 @@ export default function RoofingLanding({
 						<div className="roof-hero-copy">
 							<p className="roof-service">
 								<span />
-								Houston {copy.label.toLowerCase()}
+								{intent === "replacement" ? "League City" : "Clear Lake"} ·{" "}
+								{copy.label}
 							</p>
 							<h1>
 								{scene.title.split("\n").map((line) => (
@@ -251,15 +258,13 @@ export default function RoofingLanding({
 							</h1>
 							<p className="roof-description">{scene.description}</p>
 							<a href="#request" className="roof-primary">
-								Request an inspection <Icon name="arrow" />
+								Get my free inspection <Icon name="arrow" />
 							</a>
-							<p className="roof-cta-note">
-								A few details. One clear next step.
-							</p>
+							<p className="roof-cta-note">Free inspection · No obligation</p>
 						</div>
 						<div className="roof-photo-caption">
 							<span>{scene.detail}</span>
-							<small>AI-generated illustration · Not client work</small>
+							<small>Photo from Ronnie Roofer’s published work</small>
 						</div>
 					</div>
 				</div>
@@ -288,25 +293,58 @@ export default function RoofingLanding({
 			</section>
 			<div className="roof-promise-bar roof-wrap">
 				<div>
+					<span className="roof-stars" aria-hidden="true">
+						★★★★★
+					</span>
+					<span>
+						<strong>
+							{ronnieProof.rating} / 5 · {ronnieProof.reviewCount} Google
+							reviews
+						</strong>
+						<a href={ronnieProof.mapsUrl} target="_blank" rel="noreferrer">
+							View on Google Maps
+						</a>
+					</span>
+				</div>
+				<div>
 					<Icon name="roof" />
 					<span>
-						Your home.<strong>Your roofing concern.</strong>
+						Clear Lake · League City
+						<strong>Local roofing, personal service.</strong>
 					</span>
 				</div>
 				<div>
 					<Icon name="check" />
 					<span>
-						No roof diagnosis needed.
-						<strong>Start with what you notice.</strong>
-					</span>
-				</div>
-				<div>
-					<Icon name="phone" />
-					<span>
-						A straightforward next step.<strong>Request an inspection.</strong>
+						A clear place to start.<strong>Free roof inspections.</strong>
 					</span>
 				</div>
 			</div>
+			<section
+				className="roof-review roof-wrap"
+				id="reviews"
+				aria-label="Selected customer review"
+			>
+				<div>
+					<p className="roof-kicker">From Ronnie’s customers</p>
+					<span className="roof-stars" aria-hidden="true">
+						★★★★★
+					</span>
+				</div>
+				<figure key={intent}>
+					<blockquote>“{review.quote}”</blockquote>
+					<figcaption>
+						{review.name} · {review.context} ·{" "}
+						<a href={review.url} target="_blank" rel="noreferrer">
+							Read Google review ↗
+						</a>
+					</figcaption>
+				</figure>
+				<small>
+					Selected excerpt relevant to this page. Rating checked{" "}
+					{ronnieProof.checkedAt}; not a live feed.
+				</small>
+			</section>
 			<section className="roof-intake roof-wrap">
 				<div className="roof-intake-copy">
 					<p className="roof-kicker">Let’s start with your home</p>
@@ -319,19 +357,56 @@ export default function RoofingLanding({
 						<div>
 							<h3>What happens after you reach out?</h3>
 							<p>
-								For a live client, the roofing team would review your request
-								and contact you about inspection availability. This demo checks
-								the details without sending them.
+								On the live page, your request would go directly to Ronnie’s
+								team to discuss inspection availability. This preview checks
+								your details without sending them.
 							</p>
 						</div>
 					</div>
 					<p className="roof-service-area">
-						Houston homeowners · Replacement, storm damage & repair
+						Clear Lake · League City · Webster · Houston Bay Area
 					</p>
 				</div>
 				<div id="request">
 					<LeadForm initialNeed={intent} title={copy.action} />
 				</div>
+			</section>
+			<section className="roof-projects roof-wrap" id="work">
+				<div className="roof-section-heading">
+					<p className="roof-kicker">A closer look at Ronnie’s work</p>
+					<h2>Real homes. Real roofing.</h2>
+					<p>Project photographs published by Ronnie Roofer.</p>
+				</div>
+				<div className="roof-project-grid">
+					<figure>
+						<Image
+							src="/images/ronnie/brick.webp"
+							alt="Brick home with a shingle roof from Ronnie Roofer’s gallery"
+							width={1000}
+							height={563}
+							sizes="(max-width: 650px) 100vw, 60vw"
+						/>
+						<figcaption>A finished roof, from Ronnie’s gallery.</figcaption>
+					</figure>
+					<figure>
+						<Image
+							src="/images/ronnie/workers.webp"
+							alt="Ronnie Roofer job site with crew and company sign"
+							width={1000}
+							height={1000}
+							sizes="(max-width: 650px) 100vw, 40vw"
+						/>
+						<figcaption>A look at the crew on the job.</figcaption>
+					</figure>
+				</div>
+				<a
+					className="roof-source-link"
+					href={ronnieProof.projectSource}
+					target="_blank"
+					rel="noreferrer"
+				>
+					Explore the original project gallery ↗
+				</a>
 			</section>
 			<section className="roof-approach" id="approach">
 				<div className="roof-wrap">
@@ -389,7 +464,7 @@ export default function RoofingLanding({
 						<summary>Does a request book an appointment?</summary>
 						<p>
 							A request would need confirmation from the roofing team. In this
-							fictional demo, no contractor is contacted and no appointment is
+							proposal demo, no contractor is contacted and no appointment is
 							booked.
 						</p>
 					</details>
@@ -413,9 +488,10 @@ export default function RoofingLanding({
 						<RoofingLogo />
 					</Link>
 					<p>
-						Fictional company and illustrative imagery.
+						Independent concept prepared for Ronnie Roofer.
 						<br />
-						No reviews, credentials or project results are represented.
+						Public-source photos and review excerpts · Not an approved live
+						website.
 					</p>
 					<Link href="/operator">
 						Our acquisition workspace <Icon name="external" />
@@ -423,10 +499,10 @@ export default function RoofingLanding({
 				</div>
 			</footer>
 			<nav className="roof-mobile-actions" aria-label="Inspection actions">
-				<a href={`tel:${clientConfig.phone}`}>
+				<DemoCallButton>
 					<Icon name="phone" />
-					Demo call
-				</a>
+					Call Ronnie
+				</DemoCallButton>
 				<a href="#request">
 					Request inspection <Icon name="arrow" />
 				</a>

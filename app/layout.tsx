@@ -5,10 +5,10 @@ import "./roofing.css";
 
 export const metadata: Metadata = {
 	title: {
-		default: `${clientConfig.name} — Fictional Demo Funnel`,
+		default: `${clientConfig.name} — Personalized Proposal`,
 		template: `%s · Roofing Revenue OS`,
 	},
-	description: `Fictional ${clientConfig.city} roofing acquisition funnel and operator-dashboard demo.`,
+	description: `Independent proposal for ${clientConfig.name}: personalized roofing landing pages and a simulated acquisition walkthrough.`,
 	robots: { index: false, follow: false },
 };
 

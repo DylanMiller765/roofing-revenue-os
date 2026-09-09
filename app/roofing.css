@@ -1,10 +1,10 @@
 .roof-site {
-	--forest: #173e32;
-	--ink: #1d342b;
-	--muted: #617067;
-	--blue: #245542;
-	--teal: #38634d;
-	--line: #dce2da;
+	--forest: #a62632;
+	--ink: #25252a;
+	--muted: #6b6868;
+	--blue: #a62632;
+	--teal: #a62632;
+	--line: #e5dfda;
 	background: #fff;
 	color: var(--ink);
 }
@@ -13,8 +13,8 @@
 	margin-inline: auto;
 }
 .roof-demo-note {
-	background: #edf1eb;
-	color: #526057;
+	background: #f3efeb;
+	color: #68615d;
 	font-size: 10px;
 }
 .roof-demo-note .roof-wrap {
@@ -34,8 +34,8 @@
 	height: 12px;
 }
 .intent-switcher {
-	background: #f6f7f2;
-	border-bottom: 1px solid #dfe5db;
+	background: #faf7f3;
+	border-bottom: 1px solid #e8e1d9;
 }
 .intent-switcher-inner {
 	min-height: 88px;
@@ -70,17 +70,17 @@
 	width: 42px;
 	height: 42px;
 	background: transparent;
-	border: 1px solid #ccd6c9;
+	border: 1px solid #ded5ce;
 	border-radius: 50%;
 	transition: background 0.15s;
 }
 .slide-arrow:hover {
-	background: #e0e8dc;
+	background: #eee6df;
 }
 .search-window {
 	width: 310px;
 	background: #fff;
-	border: 1px solid #d5ded1;
+	border: 1px solid #e5ddd6;
 	border-radius: 7px;
 	padding: 12px 18px;
 	display: flex;
@@ -93,7 +93,7 @@
 }
 .search-window svg {
 	width: 17px;
-	color: #58775e;
+	color: #a62632;
 }
 .slide-count {
 	color: var(--forest);
@@ -101,7 +101,7 @@
 	font-variant-numeric: tabular-nums;
 }
 .slide-count > span {
-	color: #8a948a;
+	color: #9a8e86;
 }
 .roof-header {
 	min-height: 98px;
@@ -151,7 +151,7 @@
 	font-weight: 600;
 }
 .roof-header nav a:hover {
-	color: #557552;
+	color: #a62632;
 }
 .roof-call {
 	display: flex;
@@ -176,7 +176,7 @@
 	position: relative;
 	overflow: hidden;
 	height: 640px;
-	background: #173629;
+	background: #302a2b;
 	touch-action: pan-y;
 }
 .roof-scene {
@@ -197,11 +197,11 @@
 	background:
 		linear-gradient(
 			90deg,
-			rgba(12, 31, 23, 0.89) 0%,
-			rgba(12, 31, 23, 0.7) 35%,
-			rgba(12, 31, 23, 0.12) 74%
+			rgba(24, 20, 22, 0.89) 0%,
+			rgba(24, 20, 22, 0.7) 35%,
+			rgba(24, 20, 22, 0.12) 74%
 		),
-		linear-gradient(0deg, rgba(7, 26, 16, 0.56), transparent 35%);
+		linear-gradient(0deg, rgba(24, 20, 22, 0.56), transparent 35%);
 }
 .roof-hero-content {
 	height: 100%;
@@ -218,14 +218,14 @@
 	display: flex;
 	align-items: center;
 	gap: 9px;
-	color: #e1ead5;
+	color: #f5ddd3;
 	font-size: 12px;
 	margin-bottom: 27px;
 }
 .roof-service > span {
 	width: 6px;
 	height: 6px;
-	background: #d9e2b7;
+	background: #e6a89e;
 	border-radius: 50%;
 }
 .roof-hero h1 {
@@ -241,7 +241,7 @@
 .roof-description {
 	max-width: 450px;
 	margin-top: 26px;
-	color: #e3e8df;
+	color: #f3ece7;
 	font-size: 15px;
 	line-height: 1.85;
 }
@@ -254,17 +254,17 @@
 	padding: 15px 23px;
 	border-radius: 4px;
 	margin-top: 29px;
-	background: #e5eccf;
-	color: #1b3c2e;
+	background: #f6e4d3;
+	color: #352529;
 	font-size: 13px;
 	font-weight: 750;
 	transition: background 0.15s;
 }
 .roof-primary:hover {
-	background: #f2f6e8;
+	background: #fff2e5;
 }
 .roof-cta-note {
-	color: #d2dbc9;
+	color: #f1dfd6;
 	font-size: 10px;
 	margin-top: 12px;
 }
@@ -281,7 +281,7 @@
 	font-weight: 600;
 }
 .roof-photo-caption small {
-	color: #e2e9da;
+	color: #f1e5de;
 	font-size: 9px;
 	display: block;
 	margin-top: 5px;
@@ -308,12 +308,12 @@
 	border: 0;
 	padding: 12px 0 14px;
 	background: none;
-	color: #d9e3d3;
+	color: #f2e3da;
 	min-height: 44px;
 	font-size: 11px;
 }
 .hero-pagination button > span {
-	color: #c4d0bb;
+	color: #edcec1;
 	font-size: 9px;
 }
 .hero-pagination button i {
@@ -328,11 +328,11 @@
 	color: #fff;
 }
 .hero-pagination button[aria-pressed="true"] i {
-	background: #e5eccf;
+	background: #f6e4d3;
 	height: 3px;
 }
 .swipe-hint {
-	color: #e1e9da;
+	color: #f6e6db;
 	font-size: 10px;
 }
 .roof-promise-bar {
@@ -354,7 +354,7 @@
 .roof-promise-bar svg {
 	width: 23px;
 	height: 23px;
-	color: #527051;
+	color: #a62632;
 }
 .roof-promise-bar span {
 	display: block;
@@ -378,7 +378,7 @@
 	padding-top: 22px;
 }
 .roof-kicker {
-	color: #52704a;
+	color: #a62632;
 	font-size: 12px;
 	font-weight: 650;
 	margin-bottom: 20px;
@@ -410,7 +410,7 @@
 	display: grid;
 	place-items: center;
 	flex-shrink: 0;
-	background: #edf1e7;
+	background: #f7eeea;
 	border-radius: 50%;
 }
 .roof-next-step h3 {
@@ -425,13 +425,13 @@
 .roof-service-area {
 	margin-top: 32px;
 	font-size: 10px;
-	color: #65735f;
+	color: #7f6f68;
 }
 .roof-site .lead-panel {
-	border-color: #d9e2d5;
+	border-color: #e4dbd3;
 	border-radius: 10px;
 	padding: 30px;
-	box-shadow: 0 12px 40px #27452208;
+	box-shadow: 0 12px 40px #35252208;
 }
 .roof-site .form-icon {
 	display: none;
@@ -443,19 +443,19 @@
 	background: var(--forest);
 }
 .roof-site .button--primary:hover {
-	background: #2d5941;
+	background: #821d27;
 }
 .roof-site input:focus,
 .roof-site select:focus {
-	border-color: #527552;
+	border-color: #a62632;
 }
 .roof-site .form-field input,
 .roof-site .form-field select {
-	background: #fbfcf9;
+	background: #fffcf9;
 }
 .roof-approach {
-	background: #f3f5ef;
-	border-block: 1px solid #e4e9df;
+	background: #faf5ee;
+	border-block: 1px solid #e9dfd3;
 	padding: 64px 0 70px;
 }
 .roof-approach .roof-wrap {
@@ -479,9 +479,9 @@
 	place-items: center;
 	width: 34px;
 	height: 34px;
-	border: 1px solid #c6d4bf;
+	border: 1px solid #d9c6bb;
 	border-radius: 50%;
-	color: #43643b;
+	color: #a62632;
 	font-size: 10px;
 	margin-bottom: 22px;
 }
@@ -518,7 +518,7 @@
 }
 .roof-footer {
 	padding: 38px 0;
-	background: #173e32;
+	background: #a62632;
 }
 .roof-footer .roof-wrap {
 	display: flex;
@@ -528,18 +528,18 @@
 }
 .roof-footer .roof-brand,
 .roof-footer .roof-logo-type small {
-	color: #f4f6ed;
+	color: #fff4ec;
 }
 .roof-footer .roof-logo-star {
 	color: #c9d6a6;
 }
 .roof-footer p {
 	font-size: 10px;
-	color: #c6d6c3;
+	color: #efd4cb;
 }
 .roof-footer > div > a:last-child {
 	font-size: 11px;
-	color: #e5eccf;
+	color: #f6e4d3;
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -752,12 +752,12 @@
 		background:
 			linear-gradient(
 				180deg,
-				rgba(9, 31, 21, 0.86),
-				rgba(9, 31, 21, 0.55) 55%,
-				rgba(9, 31, 21, 0.18) 78%,
-				rgba(9, 31, 21, 0.75)
+				rgba(24, 20, 22, 0.86),
+				rgba(24, 20, 22, 0.55) 55%,
+				rgba(24, 20, 22, 0.18) 78%,
+				rgba(24, 20, 22, 0.75)
 			),
-			linear-gradient(90deg, #0c24152b, transparent);
+			linear-gradient(90deg, #24151a2b, transparent);
 	}
 	.roof-photo-caption {
 		bottom: 95px;
@@ -907,22 +907,23 @@
 		padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
 		background: #fffffff5;
 		backdrop-filter: blur(12px);
-		border-top: 1px solid #d9e2d5;
+		border-top: 1px solid #e4dbd3;
 		gap: 10px;
 	}
-	.roof-mobile-actions a {
+	.roof-mobile-actions > a,
+	.roof-mobile-actions > button {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		gap: 9px;
 		min-height: 45px;
-		border: 1px solid #d9e2d5;
+		border: 1px solid #e4dbd3;
 		border-radius: 4px;
 		font-size: 11px;
 		padding: 10px;
 		flex: 1;
 	}
-	.roof-mobile-actions a:last-child {
+	.roof-mobile-actions > a:last-child {
 		flex: 1.5;
 		background: var(--forest);
 		color: #fff;
@@ -950,4 +951,379 @@
 .roof-photo {
 	pointer-events: none;
 	user-select: none;
+}
+
+/* Ronnie Roofer: red identity, warm paper, and published project photography. */
+.ronnie-wordmark {
+	gap: 1px;
+}
+.ronnie-wordmark > span {
+	font-size: 39px;
+	font-weight: 850;
+	letter-spacing: -0.065em;
+}
+.ronnie-wordmark b {
+	color: #272329;
+}
+.ronnie-wordmark small {
+	font-size: 11px;
+	letter-spacing: 0.37em;
+}
+.roof-footer .ronnie-wordmark b {
+	color: #ffd0bc;
+}
+.roof-call {
+	border: 0;
+	background: transparent;
+	text-align: left;
+	padding: 8px 0;
+}
+.roof-stars {
+	color: #b27425;
+	letter-spacing: 3px;
+	font-size: 16px;
+}
+.roof-promise-bar .roof-stars {
+	font-size: 14px;
+	letter-spacing: 1px;
+}
+.roof-promise-bar a {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+.roof-review {
+	display: grid;
+	grid-template-columns: 220px 1fr;
+	gap: 16px 45px;
+	padding-block: 40px;
+	border-bottom: 1px solid var(--line);
+}
+.roof-review .roof-kicker {
+	margin-bottom: 8px;
+}
+.roof-review figure {
+	margin: 0;
+}
+.roof-review blockquote {
+	margin: 0 0 12px;
+	font-size: clamp(23px, 2.6vw, 34px);
+	line-height: 1.3;
+	font-weight: 600;
+	letter-spacing: -0.025em;
+}
+.roof-review figcaption {
+	color: #6b6868;
+	font-size: 12px;
+	line-height: 1.7;
+}
+.roof-review figcaption a {
+	color: var(--forest);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+.roof-review > small {
+	grid-column: 2;
+	font-size: 10px;
+	color: #78716c;
+}
+.roof-projects {
+	padding-bottom: 70px;
+}
+.roof-projects .roof-section-heading > p:last-child {
+	margin-top: 15px;
+	color: #6b6868;
+	font-size: 13px;
+}
+.roof-project-grid {
+	display: grid;
+	grid-template-columns: 1.4fr 1fr;
+	gap: 25px;
+	margin-top: 30px;
+}
+.roof-project-grid figure {
+	margin: 0;
+}
+.roof-project-grid img {
+	width: 100%;
+	height: 340px;
+	object-fit: cover;
+	border-radius: 6px;
+}
+.roof-project-grid figcaption {
+	font-size: 12px;
+	margin-top: 12px;
+	color: #6b6868;
+}
+.roof-source-link {
+	display: inline-block;
+	margin-top: 24px;
+	color: var(--forest);
+	font-size: 12px;
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+.roof-call-dialog {
+	width: min(460px, calc(100% - 40px));
+	border: 1px solid #dfd5cb;
+	border-radius: 12px;
+	padding: 32px;
+	color: #25252a;
+	box-shadow: 0 20px 100px #0003;
+	margin: auto;
+}
+.roof-call-dialog::backdrop {
+	background: #21191baa;
+	backdrop-filter: blur(5px);
+}
+.roof-call-dialog h2 {
+	font-size: 28px;
+	line-height: 1.2;
+	margin-bottom: 20px;
+}
+.roof-call-dialog p:not(.roof-kicker) {
+	font-size: 14px;
+	line-height: 1.7;
+}
+.roof-call-dialog > strong {
+	display: block;
+	font-size: 26px;
+	margin: 20px 0;
+	color: #a62632;
+}
+.roof-call-dialog .roof-primary {
+	width: 100%;
+	border: 0;
+}
+.pilot-label {
+	font-size: 12px;
+	color: #7b665b;
+}
+.pilot-hero {
+	padding-block: 65px 60px;
+}
+.pilot-hero h1 {
+	font-size: clamp(42px, 5.5vw, 76px);
+	line-height: 1.05;
+	letter-spacing: -0.06em;
+	font-weight: 650;
+}
+.pilot-hero > p:not(.roof-kicker) {
+	max-width: 700px;
+	margin-top: 25px;
+	font-size: 17px;
+	line-height: 1.8;
+}
+.pilot-hero .roof-primary,
+.pilot-next .roof-primary {
+	background: #a62632;
+	color: #fff;
+}
+.pilot-example-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	margin-top: 50px;
+}
+.pilot-example-grid a {
+	padding: 26px;
+	background: #faf5ee;
+	border: 1px solid #e9dfd3;
+	border-radius: 8px;
+}
+.pilot-example-grid small,
+.pilot-example-grid strong,
+.pilot-example-grid span {
+	display: block;
+}
+.pilot-example-grid small {
+	color: #7b665b;
+	font-size: 12px;
+}
+.pilot-example-grid strong {
+	font-size: 20px;
+	margin: 12px 0 20px;
+}
+.pilot-example-grid span {
+	color: #a62632;
+	font-size: 13px;
+}
+.pilot-hero > .pilot-note {
+	font-size: 12px !important;
+	color: #6b6868;
+	max-width: 900px !important;
+}
+.pilot-offer {
+	padding: 60px 0;
+	background: #faf5ee;
+	border-block: 1px solid #e9dfd3;
+}
+.pilot-site h2 {
+	font-size: clamp(30px, 3vw, 42px);
+	line-height: 1.15;
+	letter-spacing: -0.04em;
+}
+.pilot-price-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 32px;
+	margin: 35px 0;
+}
+.pilot-price-grid article {
+	border-top: 1px solid #d6c5b9;
+	padding-top: 22px;
+}
+.pilot-price-grid small {
+	display: block;
+	font-size: 13px;
+}
+.pilot-price-grid strong {
+	display: block;
+	font-size: 52px;
+	letter-spacing: -0.06em;
+	margin: 12px 0;
+}
+.pilot-price-grid p,
+.pilot-budget-note,
+.pilot-details p,
+.pilot-next > p:not(.roof-kicker),
+.pilot-status p {
+	font-size: 14px;
+	line-height: 1.85;
+	color: #625b57;
+}
+.pilot-budget-note {
+	max-width: 900px;
+}
+.pilot-details {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 80px;
+	padding-block: 70px;
+}
+.pilot-details ul {
+	padding-left: 20px;
+	margin-top: 25px;
+	font-size: 14px;
+	line-height: 1.8;
+}
+.pilot-details li {
+	margin-bottom: 12px;
+}
+.pilot-next {
+	padding-block: 0 80px;
+	max-width: 960px;
+}
+.pilot-next > p:not(.roof-kicker) {
+	margin-top: 20px;
+}
+.pilot-status {
+	background: #faf5ee;
+	border-left: 3px solid #a62632;
+	padding: 22px;
+	margin-top: 30px;
+}
+.pilot-status strong {
+	font-size: 14px;
+}
+.pilot-status p {
+	margin-top: 10px;
+}
+.pilot-secondary {
+	display: inline-block;
+	font-size: 12px;
+	margin: 20px;
+	color: #a62632;
+}
+@media (max-width: 650px) {
+	.roof-demo-note {
+		font-size: 10px;
+		line-height: 1.5;
+		padding-block: 7px;
+	}
+	.ronnie-wordmark > span {
+		font-size: 32px;
+	}
+	.ronnie-wordmark small {
+		font-size: 9px;
+	}
+	.roof-call {
+		font-size: 12px;
+	}
+	.roof-call small {
+		font-size: 9px;
+	}
+	.roof-review {
+		grid-template-columns: 1fr;
+		padding-block: 30px;
+		gap: 18px;
+	}
+	.roof-review > small {
+		grid-column: 1;
+		line-height: 1.6;
+	}
+	.roof-projects {
+		padding-bottom: 45px;
+	}
+	.roof-project-grid {
+		grid-template-columns: 1fr;
+	}
+	.roof-project-grid img {
+		height: auto;
+		max-height: 350px;
+		object-fit: cover;
+	}
+	.roof-mobile-actions > button {
+		background: #fff;
+		color: #25252a;
+	}
+	.roof-call-dialog {
+		padding: 25px;
+	}
+	.search-window {
+		height: auto;
+		min-height: 48px;
+	}
+	.search-window > span {
+		white-space: normal;
+		line-height: 1.4;
+	}
+	.slide-arrow {
+		width: 44px;
+		height: 44px;
+	}
+	.roof-photo-caption {
+		bottom: 90px;
+	}
+	.roof-photo-caption small {
+		font-size: 9px;
+	}
+	.pilot-hero {
+		padding-block: 35px 40px;
+	}
+	.pilot-hero > p:not(.roof-kicker) {
+		font-size: 15px;
+	}
+	.pilot-example-grid,
+	.pilot-price-grid,
+	.pilot-details {
+		grid-template-columns: 1fr;
+		gap: 25px;
+	}
+	.pilot-example-grid strong {
+		font-size: 18px;
+	}
+	.pilot-offer {
+		padding-block: 40px;
+	}
+	.pilot-details {
+		padding-block: 45px;
+		gap: 40px;
+	}
+	.pilot-secondary {
+		margin: 20px 0;
+	}
+	.pilot-label {
+		font-size: 10px;
+		text-align: right;
+	}
 }

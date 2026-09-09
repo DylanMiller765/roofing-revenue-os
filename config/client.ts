@@ -13,36 +13,23 @@ export type ClientConfig = {
 	isDemo: boolean;
 };
 
-/**
- * The only place the public funnel should get client-specific identity data.
- * Every value below is explicitly fictional and must be replaced with verified
- * client information before setting `isDemo` to false.
+/** Public business details for a proposed Ronnie Roofer demo. Never routes leads.
+ * ZIP selection is a proposed test area, not a confirmed service boundary.
  */
 export const clientConfig = {
-	name: "Lone Star Roof Co.",
-	shortName: "Lone Star Roof",
-	logoName: "Lone Star",
-	logoDescriptor: "Roof Co.",
+	name: "Ronnie Roofer",
+	shortName: "Ronnie Roofer",
+	logoName: "Ronnie",
+	logoDescriptor: "Roofer",
 	city: "Houston",
-	market: "Houston, TX",
-	serviceAreaLabel: "Houston metro demo area",
-	serviceAreaZips: [
-		"77002",
-		"77007",
-		"77008",
-		"77018",
-		"77024",
-		"77043",
-		"77055",
-		"77079",
-		"77080",
-		"77084",
-	],
-	phone: "+17135550147",
-	phoneDisplay: "(713) 555-0147",
-	responseExpectation: "Demo response only — no contractor will contact you.",
+	market: "Clear Lake · League City",
+	serviceAreaLabel: "Proposed Clear Lake / League City pilot area",
+	serviceAreaZips: ["77058", "77059", "77062", "77573", "77598"],
+	phone: "+12815150630",
+	phoneDisplay: "(281) 515-0630",
+	responseExpectation: "Proposal demo only — no contractor will contact you.",
 	isDemo: true,
 } as const satisfies ClientConfig;
 
 export const demoDisclaimer =
-	"Fictional roofing company for product demonstration. No roofing service is offered and no business claims are real.";
+	"Independent proposal for Ronnie Roofer. Not their live website. Forms and calls are simulated; advertising results are mock.";

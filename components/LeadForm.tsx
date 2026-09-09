@@ -180,7 +180,7 @@ export default function LeadForm({
 						autoComplete="postal-code"
 						pattern="[0-9]{5}"
 						maxLength={5}
-						placeholder="77008"
+						placeholder="77058"
 						required
 					/>
 				</div>

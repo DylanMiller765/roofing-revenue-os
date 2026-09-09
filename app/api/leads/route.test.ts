@@ -4,7 +4,7 @@ import { POST } from "./route";
 const lead = {
 	homeowner: "yes",
 	need: "repair",
-	zip: "77008",
+	zip: "77058",
 	phone: "7135550184",
 	name: "Demo Homeowner",
 };
