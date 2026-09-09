@@ -114,31 +114,35 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 12px;
-	font-size: 23px;
-	font-weight: 750;
-	letter-spacing: -0.06em;
-	line-height: 1.15;
+	color: var(--forest);
+	flex-shrink: 0;
 }
-.roof-brand small {
-	display: block;
-	margin-top: 5px;
-	color: var(--muted);
-	font-size: 9px;
-	font-weight: 500;
-	letter-spacing: 0.07em;
-}
-.roof-brand-icon {
-	width: 43px;
+.roof-logo-mark {
+	width: 51px;
 	height: 47px;
-	display: grid;
-	place-items: center;
-	background: var(--forest);
-	color: #f2f5e8;
-	border-radius: 3px 3px 14px 3px;
+	flex-shrink: 0;
 }
-.roof-brand-icon svg {
-	width: 29px;
-	height: 29px;
+.roof-logo-star {
+	color: #81925e;
+}
+.roof-logo-type {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+.roof-logo-type > span {
+	font-size: 29px;
+	font-weight: 750;
+	line-height: 1;
+	letter-spacing: -0.045em;
+}
+.roof-logo-type small {
+	font-size: 9px;
+	font-weight: 650;
+	line-height: 1;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	color: var(--forest);
 }
 .roof-header nav {
 	display: flex;
@@ -522,16 +526,12 @@
 	justify-content: space-between;
 	gap: 25px;
 }
-.roof-footer .roof-brand {
-	color: white;
-	font-size: 20px;
+.roof-footer .roof-brand,
+.roof-footer .roof-logo-type small {
+	color: #f4f6ed;
 }
-.roof-footer .roof-brand small {
-	color: #c0d1bd;
-}
-.roof-footer .roof-brand-icon {
-	background: #e5eccf;
-	color: #173e32;
+.roof-footer .roof-logo-star {
+	color: #c9d6a6;
 }
 .roof-footer p {
 	font-size: 10px;
@@ -682,21 +682,21 @@
 		gap: 16px;
 	}
 	.roof-brand {
-		font-size: 20px;
 		gap: 8px;
 	}
-	.roof-brand-icon {
-		width: 33px;
-		height: 39px;
-		border-radius: 3px 3px 10px 3px;
+	.roof-logo-mark {
+		width: 37px;
+		height: 37px;
 	}
-	.roof-brand-icon svg {
-		width: 24px;
-		height: 24px;
+	.roof-logo-type {
+		gap: 5px;
 	}
-	.roof-brand small {
+	.roof-logo-type > span {
+		font-size: 23px;
+	}
+	.roof-logo-type small {
 		font-size: 7px;
-		letter-spacing: 0.01em;
+		letter-spacing: 0.28em;
 	}
 	.roof-call {
 		font-size: 11px;

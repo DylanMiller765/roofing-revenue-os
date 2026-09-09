@@ -39,3 +39,6 @@ The design prioritizes message relevance, readable mobile content, click-to-call
 - Operator dashboard and Ads policy/analyst source are unchanged. No live service, delivery, call or ad-account action occurred.
 
 Screenshots: `public/screenshots/roofing-slider-desktop.png`, `roofing-slider-storm.png`, `roofing-slider-mobile.png`, and `roofing-form-mobile.png`.
+
+## Logo refinement
+Replaced the boxed house icon with a custom vector roof-and-star mark and a stacked Lone Star / Roof Co. wordmark. Header and footer share `components/RoofingLogo.tsx`; wording is configured in `config/client.ts`. The unboxed mark inherits the forest/cream palette and uses a muted sage star.

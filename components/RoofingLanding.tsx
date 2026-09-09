@@ -10,6 +10,7 @@ import {
 	resolveLandingIntent,
 } from "@/lib/landing-intent";
 import LeadForm from "./LeadForm";
+import RoofingLogo from "./RoofingLogo";
 import Icon from "./Icon";
 
 const order: LandingIntent[] = ["replacement", "storm", "repair"];
@@ -151,13 +152,7 @@ export default function RoofingLanding({
 					href="/"
 					aria-label={`${clientConfig.name} demo home`}
 				>
-					<span className="roof-brand-icon">
-						<Icon name="roof" />
-					</span>
-					<span>
-						{clientConfig.shortName}
-						<small>Houston residential roofing</small>
-					</span>
+					<RoofingLogo />
 				</Link>
 				<nav aria-label="Page sections">
 					<a href="#approach">Our approach</a>
@@ -410,14 +405,12 @@ export default function RoofingLanding({
 			</section>
 			<footer className="roof-footer">
 				<div className="roof-wrap">
-					<Link className="roof-brand" href="/">
-						<span className="roof-brand-icon">
-							<Icon name="roof" />
-						</span>
-						<span>
-							{clientConfig.shortName}
-							<small>Houston residential roofing</small>
-						</span>
+					<Link
+						className="roof-brand"
+						href="/"
+						aria-label={`${clientConfig.name} demo home`}
+					>
+						<RoofingLogo />
 					</Link>
 					<p>
 						Fictional company and illustrative imagery.
