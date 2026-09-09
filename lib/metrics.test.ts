@@ -11,6 +11,8 @@ describe("core funnel metrics", () => {
     expect(result.cpl).toBe(100);
     expect(result.cpql).toBe(150);
     expect(result.costPerBookedInspection).toBe(300);
+    expect(result.costPerEstimate).toBe(400);
+    expect(result.costPerConvertedLead).toBe(600);
     expect(result.costPerWin).toBe(600);
     expect(result.leadToQualifiedRate).toBeCloseTo(2 / 3);
     expect(result.bookedToWinRate).toBe(0.5);

@@ -26,9 +26,13 @@ const headlineMetrics = [
 ] as const;
 
 function statusClass(status: string) {
-  if (status === "Healthy" || status === "approved" || status === "Keep") return "status status--good";
-  if (status === "Waste review" || status === "rejected" || status === "Negative review") return "status status--alert";
+  if (status === "Healthy" || status === "approved" || status === "Keep" || status === "executed") return "status status--good";
+  if (status === "Waste review" || status === "rejected" || status === "Negative review" || status === "blocked" || status === "critical") return "status status--alert";
   return "status status--watch";
+}
+
+function evidenceSummary(evidence: Record<string, string | number | boolean | null>) {
+  return Object.entries(evidence).slice(0, 4).map(([key, value]) => `${key}: ${typeof value === "number" ? number.format(value) : value}`).join(" · ");
 }
 
 export default function Operator() {
@@ -43,7 +47,7 @@ export default function Operator() {
       </header>
 
       <div className="mock-banner" role="note">
-        <div className="wrap"><strong>Mock dataset</strong><span>No Google Ads or CRM account is connected. All recommendations are read-only and require human approval.</span></div>
+        <div className="wrap"><strong>Mock dataset</strong><span>Controlled-write policy is modeled, but no Google Ads or CRM account is connected. Every live mutation requires separately scoped human approval.</span></div>
       </div>
 
       <div className="operator-main wrap">
@@ -105,22 +109,22 @@ export default function Operator() {
         </div>
 
         <section className="dashboard-section" id="recommendations">
-          <div className="dashboard-section__heading"><div><p>Daily Ads Analyst</p><h2>Recommendation queue</h2></div><span>Human review required</span></div>
+          <div className="dashboard-section__heading"><div><p>Deterministic Ads Analyst</p><h2>Recommendation queue</h2></div><span>Tracking gate passed · approval required</span></div>
           <div className="recommendation-grid">
             {recommendations.map((recommendation) => (
               <article className="recommendation" key={recommendation.id}>
                 <div className="recommendation__meta"><span>{recommendation.id}</span><span className={statusClass(recommendation.status)}>{recommendation.status}</span></div>
-                <p>{recommendation.className}</p><h3>{recommendation.title}</h3><strong>{recommendation.evidence}</strong><span>{recommendation.detail}</span>
-                <footer><span>Confidence: {recommendation.confidence}</span><button type="button" disabled>Review in connected mode</button></footer>
+                <p>{recommendation.className.replaceAll("-", " ")}</p><h3>{recommendation.title}</h3><strong>{evidenceSummary(recommendation.evidence)}</strong><span>{recommendation.detail}</span>
+                <footer><span>Confidence: {recommendation.confidence} · Severity: {recommendation.severity}</span><button type="button" disabled>Approve in connected mode</button></footer>
               </article>
             ))}
           </div>
         </section>
 
         <section className="dashboard-section audit-section">
-          <div className="dashboard-section__heading"><div><p>Governance</p><h2>Audit trail</h2></div><span>Latest activity</span></div>
+          <div className="dashboard-section__heading"><div><p>Governance</p><h2>Change audit</h2></div><span>Mock policy evaluation</span></div>
           <div className="audit-list">
-            {auditTrail.map((entry) => <article key={`${entry.time}-${entry.action}`}><time>{entry.time}</time><strong>{entry.actor}</strong><span>{entry.action}</span><p>{entry.detail}</p></article>)}
+            {auditTrail.map((entry) => <article key={entry.id}><time>{new Date(entry.timestamp).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/Chicago" })}</time><strong>{entry.actor}</strong><span>{entry.actionType.replaceAll("-", " ")} · <i className={statusClass(entry.status)}>{entry.status}</i></span><p>Previous: {JSON.stringify(entry.previousValue)} → New: {JSON.stringify(entry.newValue)} · {entry.reason} · Confidence: {entry.confidence}</p></article>)}
           </div>
         </section>
       </div>

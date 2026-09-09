@@ -49,3 +49,39 @@ create table if not exists analyst_recommendations (
   evidence jsonb not null default '{}'::jsonb,
   status text not null default 'proposed'
 );
+
+create table if not exists google_ads_change_audit (
+  id uuid primary key default gen_random_uuid(),
+  client_id uuid references clients(id),
+  proposal_id text not null,
+  occurred_at timestamptz not null default now(),
+  actor text not null,
+  action_type text not null,
+  resource_type text not null,
+  resource_id text,
+  previous_value jsonb,
+  new_value jsonb,
+  reason text not null,
+  supporting_metrics jsonb not null default '{}'::jsonb,
+  confidence text not null,
+  risk text not null,
+  status text not null,
+  policy_reasons jsonb not null default '[]'::jsonb,
+  approval jsonb,
+  external_request_id text,
+  error text
+);
+
+create or replace function prevent_google_ads_audit_mutation()
+returns trigger
+language plpgsql
+as $$
+begin
+  raise exception 'google_ads_change_audit is append-only';
+end;
+$$;
+
+drop trigger if exists google_ads_change_audit_append_only on google_ads_change_audit;
+create trigger google_ads_change_audit_append_only
+before update or delete on google_ads_change_audit
+for each row execute function prevent_google_ads_audit_mutation();

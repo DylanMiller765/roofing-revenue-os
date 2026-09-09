@@ -13,6 +13,8 @@ export type FunnelMetrics = FunnelMetricsInput & {
   cpl: number | null;
   cpql: number | null;
   costPerBookedInspection: number | null;
+  costPerEstimate: number | null;
+  costPerConvertedLead: number | null;
   costPerWin: number | null;
   leadToQualifiedRate: number | null;
   qualifiedToBookedRate: number | null;
@@ -30,6 +32,8 @@ export function calculateFunnelMetrics(input: FunnelMetricsInput): FunnelMetrics
     cpl: safeDivide(input.spend, input.leads),
     cpql: safeDivide(input.spend, input.qualifiedLeads),
     costPerBookedInspection: safeDivide(input.spend, input.bookedInspections),
+    costPerEstimate: safeDivide(input.spend, input.estimates),
+    costPerConvertedLead: safeDivide(input.spend, input.wins),
     costPerWin: safeDivide(input.spend, input.wins),
     leadToQualifiedRate: safeDivide(input.qualifiedLeads, input.leads),
     qualifiedToBookedRate: safeDivide(input.bookedInspections, input.qualifiedLeads),
